@@ -7,6 +7,7 @@
         "zhuangtongfa.material-theme",
         "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
-        "cweijan.vscode-typora"
+        "cweijan.vscode-typora",
+        "stivo.tailwind-fold"
     ]
 }
