@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "mhutchie.git-graph",
+        "github.copilot",
+        "github.copilot-chat",
+        "pkief.material-icon-theme",
+        "zhuangtongfa.material-theme",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "cweijan.vscode-typora"
+    ]
+}

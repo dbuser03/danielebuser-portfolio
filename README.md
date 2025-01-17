@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Technological Choices for the Portfolio
 
-First, run the development server:
+## Introduction
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This document outlines the technological choices adopted for developing my personal portfolio, hosted at  **[www.danielebuser.com](http://www.danielebuser.com)** . The goal is to create a robust, efficient, and scalable development environment, ensuring compatibility between Linux and Windows.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For the development of the project, I selected the following tech stack:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Languages:** HTML, CSS, TypeScript
+* **Framework:** Next.js
+* **Animations:** Framer Motion
+* **3D Graphics:** Three.js
+* **Styling:** Tailwind CSS
 
-## Learn More
+### Reasons for the Choices
 
-To learn more about Next.js, take a look at the following resources:
+* **Next.js:**
+  * Native support for TypeScript
+  * Automatic performance optimization (SSR, ISR, SSG)
+  * Easy deployment on platforms like Vercel
+* **Framer Motion:**
+  * Simple yet powerful animation API
+  * Perfect integration with React and Next.js
+* **Three.js:**
+  * Native 3D graphic power for the web
+  * Excellent integration with React via @react-three/fiber
+* **Tailwind CSS:**
+  * Utility-first approach to styling
+  * Better CSS organization compared to traditional frameworks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Dependency Management: Why `pnpm`?
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+I chose `pnpm` over `npm` or `yarn` for dependency management. The main reasons include:
 
-## Deploy on Vercel
+* **Performance:** `pnpm` uses an advanced caching mechanism that significantly reduces installation times and disk space usage.
+* **Intelligent package management:** Dependencies are not duplicated; symbolic links ensure better efficiency.
+* **Deterministic structure:** Guarantees that all environments have exactly the same dependency versions.
+* **Native monorepo support:** Excellent handling of projects with multiple packages.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Installing `pnpm`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Installing `pnpm` is straightforward and supported across various operating systems:
+
+* **Linux/macOS:**
+  ```sh
+  curl -fsSL https://get.pnpm.io/install.sh | sh -
+  ```
+* **Windows (PowerShell):**
+  ```powershell
+  iwr https://get.pnpm.io/install.ps1 -useb | iex
+  ```
+* **Alternative with Corepack:**
+  ```sh
+  corepack enable
+  corepack prepare pnpm@latest --activate
+  ```
+
+## Development Environment Configuration
+
+To ensure a stable and replicable development environment, I use **VS Code** with the following extensions:
+
+* **Theme and Icons:** One Dark Pro, Material Icons
+* **Formatting:** Prettier
+* **Documentation:** Typora
+* **Linting and Styling:** ESLint, Tailwind CSS IntelliSense
+* **AI Tools:** Copilot Extension, ChatGPT, Claude
+
+This configuration ensures an optimal development experience on both Linux and Windows, keeping the code clean and compliant with standards.
+
+## Conclusion
+
+This document provides an overview of the technological choices and the reasoning behind the project. The current setup guarantees a modern, high-performance, and scalable development environment, simplifying future maintenance and expansion of the portfolio.
