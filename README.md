@@ -129,6 +129,17 @@ Use a structured branching model with the following branches:
   * For critical issues in production, create a `hotfix/` branch from `main`.
   * Merge the fix into both `main` (for immediate deployment) and `dev` (to sync the fix).
 
+## Additional Frameworks & Libraries
+
+To further enhance the functionality and maintainability of the portfolio, the following additional frameworks and libraries have been integrated into the development workflow:
+
+- **Zod:**A TypeScript-first schema declaration and validation library. Zod is used to ensure data consistency and type safety throughout the application, particularly in form validations and API response handling.
+- **React Hook Form:**This library streamlines form management and validation, providing a performant solution for handling user inputs (such as contact forms). When combined with Zod, it offers robust, type-safe validations with minimal boilerplate.
+- **Zustand:**
+  A lightweight state management library ideal for managing global state in a simple, intuitive manner. Zustand allows for a minimalistic approach to state handling, avoiding the complexity of larger libraries while still offering excellent performance and scalability.
+
+These frameworks complement the core tech stack (Next.js, Framer Motion, Three.js, and Tailwind CSS) by providing specialized solutions for state management, form handling, and data validation—ensuring a robust, efficient, and scalable development environment.
+
 ## Conclusion
 
 This document provides an overview of the technological choices and the reasoning behind the project. The current setup guarantees a modern, high-performance, and scalable development environment, simplifying future maintenance and expansion of the portfolio.
