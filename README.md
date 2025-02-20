@@ -133,8 +133,8 @@ Use a structured branching model with the following branches:
 
 To further enhance the functionality and maintainability of the portfolio, the following additional frameworks and libraries have been integrated into the development workflow:
 
-- **Zod:**A TypeScript-first schema declaration and validation library. Zod is used to ensure data consistency and type safety throughout the application, particularly in form validations and API response handling.
-- **React Hook Form:**This library streamlines form management and validation, providing a performant solution for handling user inputs (such as contact forms). When combined with Zod, it offers robust, type-safe validations with minimal boilerplate.
+- **Zod**: A TypeScript-first schema declaration and validation library. Zod is used to ensure data consistency and type safety throughout the application, particularly in form validations and API response handling.
+- **React Hook Form**: This library streamlines form management and validation, providing a performant solution for handling user inputs (such as contact forms). When combined with Zod, it offers robust, type-safe validations with minimal boilerplate.
 - **Zustand:**
   A lightweight state management library ideal for managing global state in a simple, intuitive manner. Zustand allows for a minimalistic approach to state handling, avoiding the complexity of larger libraries while still offering excellent performance and scalability.
 
