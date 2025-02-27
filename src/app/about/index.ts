@@ -1,0 +1,1 @@
+export { default as AboutScreen } from "@/app/about/AboutScreen";

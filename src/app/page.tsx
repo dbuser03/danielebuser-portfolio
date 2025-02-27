@@ -1,7 +1,12 @@
+import { LandingScreen } from "@/app/landing";
+import { Footer, Header } from "@/components/layout";
+
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-6xl font-bold">Daniele Buser</h1>
+    <div className="flex min-h-screen flex-col overflow-hidden">
+      <Header />
+      <LandingScreen />
+      <Footer />
     </div>
   );
 }
