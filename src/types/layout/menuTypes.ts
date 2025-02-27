@@ -8,6 +8,8 @@ export const MenuItemSchema = z.object({
 export const AppStateSchema = z.object({
   menuItems: z.array(MenuItemSchema),
   loaded: z.boolean(),
+  setMenuItems: z.function().args(z.array(MenuItemSchema)).returns(z.void()),
+  setLoaded: z.function().args(z.boolean()).returns(z.void()),
 });
 
 export type MenuItem = z.infer<typeof MenuItemSchema>;

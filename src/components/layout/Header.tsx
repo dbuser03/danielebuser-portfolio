@@ -1,16 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useStore } from "@/store/layout/menuStore";
+import { useStore } from "@/store/layout/store";
 
 const Header = () => {
   const menuItems = useStore((state) => state.menuItems);
+  const [isLoaded, setIsLoaded] = useState(false);
   const loaded = useStore((state) => state.loaded);
 
+  useEffect(() => {
+    setIsLoaded(loaded);
+  }, [loaded]);
+
   return (
-    <div className="fixed top-0 left-0 z-10 flex w-full items-center justify-between px-8 py-4 mix-blend-difference">
+    <div className="items-top fixed top-0 left-0 z-10 flex w-full justify-between px-8 py-4 mix-blend-difference">
       <div className="flex-col">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -29,7 +34,7 @@ const Header = () => {
           Creative Developer
         </motion.div>
       </div>
-      {loaded && (
+      {isLoaded && (
         <div className="flex space-x-8 text-sm text-[var(--neutral)]">
           {menuItems.map((item, index) => (
             <motion.div
