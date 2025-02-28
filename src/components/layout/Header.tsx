@@ -1,18 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useStore } from "@/store/layout/store";
+import { useLoadingProgress } from "@/hooks/layout/useLoadingProgress";
 
 const Header = () => {
-  const menuItems = useStore((state) => state.menuItems);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const loaded = useStore((state) => state.loaded);
-
-  useEffect(() => {
-    setIsLoaded(loaded);
-  }, [loaded]);
+  const { isLoaded, menuItems } = useLoadingProgress();
 
   return (
     <div className="items-top fixed top-0 left-0 z-10 flex w-full justify-between px-8 py-4 mix-blend-difference">

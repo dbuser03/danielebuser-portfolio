@@ -1,7 +1,10 @@
 import { create } from 'zustand';
 import { AppState, MenuItem } from '../../types/layout/menuTypes';
 
+const isBrowser = typeof window !== 'undefined';
+
 const loadStateFromLocalStorage = () => {
+  if (!isBrowser) return false;
   try {
     const serializedState = localStorage.getItem('loaded');
     return serializedState ? JSON.parse(serializedState) : false;
@@ -12,6 +15,7 @@ const loadStateFromLocalStorage = () => {
 };
 
 const saveStateToLocalStorage = (loaded: boolean) => {
+  if (!isBrowser) return;
   try {
     const serializedState = JSON.stringify(loaded);
     localStorage.setItem('loaded', serializedState);
