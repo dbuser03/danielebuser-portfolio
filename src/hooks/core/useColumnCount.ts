@@ -15,7 +15,10 @@ export const useColumnCount = () => {
         setColumnCount(COLUMN_BREAKPOINTS.md);
       } else if (width >= 640) {
         setColumnCount(COLUMN_BREAKPOINTS.sm);
-      } else {
+      } else if (width < 640) {
+        setColumnCount(COLUMN_BREAKPOINTS.xs);
+      }
+      else {
         setColumnCount(COLUMN_BREAKPOINTS.default);
       }
     };

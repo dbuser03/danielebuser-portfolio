@@ -1,33 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { useLoadingProgress } from "@/hooks/layout/useLoadingProgress";
+import { useTimezone } from "@/hooks/layout/useTimezone";
 
 const Footer = () => {
   const { isLoaded, counter, pageNumber } = useLoadingProgress();
-  const [milanTime, setMilanTime] = useState<string>("");
-
-  useEffect(() => {
-    const getMilanTime = () => {
-      const now = new Date();
-
-      const formatter = new Intl.DateTimeFormat("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-        timeZone: "Europe/Rome",
-      });
-
-      setMilanTime(formatter.format(now));
-    };
-
-    getMilanTime();
-
-    const interval = setInterval(() => {
-      getMilanTime();
-    }, 60000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const milanTime = useTimezone({
+    timezone: "Europe/Rome",
+    updateInterval: 60000,
+    format: {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    }
+  });
 
   return (
     <div className="fixed bottom-0 left-0 z-10 flex w-full items-end justify-between px-8 py-4 mix-blend-difference">
@@ -38,7 +24,7 @@ const Footer = () => {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1 }}
-              className="flex items-center text-sm"
+              className="flex items-center text-base"
             >
               MILANO - <span className="ml-1">{milanTime}</span>
             </motion.div>

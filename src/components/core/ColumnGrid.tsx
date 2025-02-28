@@ -14,11 +14,10 @@ export const ColumnGrid: React.FC<ColumnGridProps> = ({
       {Array.from({ length: columnCount }).map((_, index) => (
         <div
           key={index}
-          className={`h-full ${showBorder ? "border border-white" : ""}`}
-          style={{
-            backgroundColor: `var(--columns)`,
-            opacity,
-          }}
+          style={{ opacity }}
+          className={`h-full bg-[var(--columns)] ${
+            showBorder ? "border border-white" : ""
+          }`}
         />
       ))}
     </div>

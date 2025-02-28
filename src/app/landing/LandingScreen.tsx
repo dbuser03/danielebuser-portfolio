@@ -6,7 +6,7 @@ const LandingScreen = () => {
   const columnCount = useColumnCount();
 
   return (
-    <div className="bg-foreground relative h-[100vh] flex-shrink-0">
+    <div className="relative h-[100vh] flex-shrink-0">
       <ColumnGrid columnCount={columnCount} showBorder={false} opacity={1} />
     </div>
   );

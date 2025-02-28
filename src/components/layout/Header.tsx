@@ -29,7 +29,7 @@ const Header = () => {
         </div>
       </Link>
       {isLoaded && (
-        <div className="flex space-x-8 text-sm text-[var(--neutral)]">
+        <div className="flex space-x-12 text-sm text-[var(--neutral)]">
           {menuItems.map((item, index) => (
             <motion.div
               key={item.href}
