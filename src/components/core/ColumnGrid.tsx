@@ -1,7 +1,7 @@
 import React from "react";
 import { ColumnGridProps } from "@/types/core/columnType";
 
-export const ColumnGrid: React.FC<ColumnGridProps> = ({
+const ColumnGrid: React.FC<ColumnGridProps> = ({
   columnCount,
   showBorder = false,
   opacity = 1,
@@ -23,3 +23,5 @@ export const ColumnGrid: React.FC<ColumnGridProps> = ({
     </div>
   );
 };
+
+export default ColumnGrid;

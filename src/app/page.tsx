@@ -5,16 +5,15 @@ import { LandingScreen } from "@/app/landing";
 import { Footer, Header } from "@/components/layout";
 
 export default function Home() {
-  const { handleClick, cursorStyle } = useClickHandler();
+  const { handleClick, readyForClick, hideLabel } = useClickHandler();
 
   return (
     <div
       className="flex min-h-screen flex-col overflow-hidden"
       onClick={handleClick}
-      style={{ cursor: cursorStyle }}
     >
       <Header />
-      <LandingScreen />
+      <LandingScreen readyForClick={readyForClick} hideLabel={hideLabel} />
       <Footer />
     </div>
   );

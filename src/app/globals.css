@@ -5,6 +5,11 @@
   --foreground: #f3f3f3;
   --neutral: #9b9b9b;
   --columns: #101010;
+  --cursor: #ff4500;
+}
+
+* {
+    cursor: none !important;
 }
 
 body {

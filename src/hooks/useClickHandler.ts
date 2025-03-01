@@ -7,6 +7,7 @@ export function useClickHandler() {
   const loaded = useStore((state) => state.loaded);
   const setLoaded = useStore((state) => state.setLoaded);
   const [readyForClick, setReadyForClick] = useState(false);
+  const [hideLabel, setHideLabel] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,8 +20,24 @@ export function useClickHandler() {
   useEffect(() => {
     if (loaded) {
       setReadyForClick(false);
+      setHideLabel(true);
     }
   }, [loaded]);
+
+  useEffect(() => {
+    const handleScroll = (e: WheelEvent) => {
+      if (e.deltaY > 0 && readyForClick && !loaded) {
+        setLoaded(true);
+        setReadyForClick(false);
+      }
+    };
+
+    window.addEventListener("wheel", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+    };
+  }, [readyForClick, loaded, setLoaded]);
 
   const handleClick = () => {
     if (readyForClick && !loaded) {
@@ -29,10 +46,9 @@ export function useClickHandler() {
     }
   };
 
-  const cursorStyle = readyForClick && !loaded ? "pointer" : "default";
-
   return {
     handleClick,
-    cursorStyle,
+    readyForClick,
+    hideLabel
   };
 }
