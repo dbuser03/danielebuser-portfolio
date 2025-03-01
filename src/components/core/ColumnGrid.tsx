@@ -16,7 +16,7 @@ const ColumnGrid: React.FC<ColumnGridProps> = ({
           key={index}
           style={{ opacity }}
           className={`h-full bg-[var(--columns)] ${
-            showBorder ? "border border-white" : ""
+            showBorder ? "border border-[var(--foreground)]" : ""
           }`}
         />
       ))}

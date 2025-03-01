@@ -2,11 +2,7 @@ import React from "react";
 import { useColumnCount } from "@/hooks/core/useColumnCount";
 import ColumnGrid from "@/components/core/ColumnGrid";
 import CustomCursor from "@/components/core/CustomCursor";
-
-interface LandingScreenProps {
-  readyForClick: boolean;
-  hideLabel: boolean;
-}
+import { LandingScreenProps } from "@/types/landing/landingTypes";
 
 const LandingScreen = ({ readyForClick, hideLabel }: LandingScreenProps) => {
   const columnCount = useColumnCount();
