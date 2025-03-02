@@ -1,3 +1,4 @@
+import { TIME_FORMAT, TIMEZONE } from "@/constants/footer";
 import { z } from "zod";
 
 const DateTimeFormatOptionsSchema = z.object({
@@ -8,13 +9,9 @@ const DateTimeFormatOptionsSchema = z.object({
 }).passthrough();
 
 export const UseTimezoneOptionsSchema = z.object({
-  timezone: z.string().default("Europe/Rome"),
+  timezone: z.string().default(TIMEZONE),
   updateInterval: z.number().optional().default(60000),
-  format: DateTimeFormatOptionsSchema.optional().default({
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  })
+  format: DateTimeFormatOptionsSchema.optional().default(TIME_FORMAT)
 });
 
 export type UseTimezoneOptions = z.infer<typeof UseTimezoneOptionsSchema>;

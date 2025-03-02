@@ -1,12 +1,12 @@
 import { create } from 'zustand';
-import { AppState, MenuItem } from '../../types/layout/menuTypes';
-
-const isBrowser = typeof window !== 'undefined';
+import { AppState, MenuItem } from '@/types/layout/menuTypes';
+import { IS_BROWSER, STORAGE_KEY } from '@/constants/utils';
+import { DEFAULT_MENU_ITEMS } from '@/constants/header';
 
 const loadStateFromLocalStorage = () => {
-  if (!isBrowser) return false;
+  if (!IS_BROWSER) return false;
   try {
-    const serializedState = localStorage.getItem('loaded');
+    const serializedState = localStorage.getItem(STORAGE_KEY);
     return serializedState ? JSON.parse(serializedState) : false;
   } catch (e) {
     console.error("Could not load state from local storage", e);
@@ -15,21 +15,17 @@ const loadStateFromLocalStorage = () => {
 };
 
 const saveStateToLocalStorage = (loaded: boolean) => {
-  if (!isBrowser) return;
+  if (!IS_BROWSER) return;
   try {
     const serializedState = JSON.stringify(loaded);
-    localStorage.setItem('loaded', serializedState);
+    localStorage.setItem(STORAGE_KEY, serializedState);
   } catch (e) {
     console.error("Could not save state to local storage", e);
   }
 };
 
 export const useStore = create<AppState>((set) => ({
-  menuItems: [
-    { href: "/about", label: "ABOUT" },
-    { href: "/projects", label: "PROJECTS" },
-    { href: "/contact", label: "CONTACT" },
-  ],
+  menuItems: DEFAULT_MENU_ITEMS,
   loaded: loadStateFromLocalStorage(),
   setMenuItems: (items: MenuItem[]) => set({ menuItems: items }),
   setLoaded: (loaded: boolean) => {

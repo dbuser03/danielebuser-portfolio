@@ -2,12 +2,30 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import { CursorDotProps } from "@/types/core/cursorType";
+import {
+  CURSOR_DEFAULT_SIZE,
+  CURSOR_EXPANDED_SIZE,
+  TRANSITION_DURATION,
+} from "@/constants/cursor";
+import { SPRING_CONFIG } from "@/constants/shared";
 
 const CursorDot: React.FC<CursorDotProps> = ({
   position,
   rotation,
   isClickLabel,
 }) => {
+  const cursorSize = isClickLabel ? CURSOR_EXPANDED_SIZE : CURSOR_DEFAULT_SIZE;
+
+  const cursorAnimation = {
+    width: cursorSize,
+    height: cursorSize,
+  };
+
+  const arrowAnimation = {
+    scale: 2,
+    rotate: rotation,
+  };
+
   return (
     <motion.div
       className="pointer-events-none fixed z-50 flex items-center justify-center rounded-full bg-[var(--cursor)]"
@@ -17,24 +35,17 @@ const CursorDot: React.FC<CursorDotProps> = ({
         transform: "translate(-50%, -50%)",
         mixBlendMode: "difference",
       }}
-      initial={{ width: "12px", height: "12px" }}
-      animate={{
-        width: isClickLabel ? "64px" : "12px",
-        height: isClickLabel ? "64px" : "12px",
-      }}
-      transition={{ duration: 0.3 }}
+      initial={{ width: CURSOR_DEFAULT_SIZE, height: CURSOR_DEFAULT_SIZE }}
+      animate={cursorAnimation}
+      transition={{ duration: TRANSITION_DURATION }}
     >
       {isClickLabel && (
         <motion.div
           initial={{ scale: 1 }}
-          animate={{ scale: 2, rotate: rotation }}
+          animate={arrowAnimation}
           transition={{
-            duration: 0.3,
-            rotate: {
-              type: "spring",
-              stiffness: 50,
-              damping: 10,
-            },
+            duration: TRANSITION_DURATION,
+            rotate: SPRING_CONFIG,
           }}
         >
           <MdOutlineArrowOutward />

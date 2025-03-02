@@ -12,12 +12,3 @@ export const ColumnGridSchema = z.object({
 });
 
 export type ColumnGridProps = z.infer<typeof ColumnGridSchema>;
-
-export const COLUMN_BREAKPOINTS = {
-  xs: 4,
-  sm: 6,
-  md: 8,
-  lg: 10,
-  xl: 12,
-  default: 0,
-};

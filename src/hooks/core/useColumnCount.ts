@@ -1,5 +1,5 @@
+import { COLUMN_BREAKPOINTS } from "@/constants/landing";
 import { useState, useEffect } from "react";
-import { COLUMN_BREAKPOINTS } from "@/types/core/columnType";
 
 export const useColumnCount = () => {
   const [columnCount, setColumnCount] = useState(COLUMN_BREAKPOINTS.default);

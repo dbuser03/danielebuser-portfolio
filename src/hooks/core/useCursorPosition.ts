@@ -1,16 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { CursorDotProps } from "@/types/core/cursorType";
+import { calculateVelocity, calculateRotation } from "@/utils/core/cursorUtils";
+import { INITIAL_POSITION } from "@/constants/cursor";
 
-export interface CursorPosition {
-  position: { x: number, y: number };
-  rotation: number;
-}
-
-const INITIAL_POSITION = { x: -32, y: -32 };
-const VELOCITY_SMOOTHING = 0.8;
-const MOVEMENT_THRESHOLD = 8;
-const ROTATION_OFFSET = 45;
-
-export function useCursorPosition(): CursorPosition {
+export function useCursorPosition(): CursorDotProps {
   const [position, setPosition] = useState(INITIAL_POSITION);
   const [rotation, setRotation] = useState(0);
 
@@ -28,29 +21,22 @@ export function useCursorPosition(): CursorPosition {
       const timeElapsed = currentTime - lastUpdateTimeRef.current;
 
       if (timeElapsed > 0) {
-        const dx = newPosition.x - prevPositionRef.current.x;
-        const dy = newPosition.y - prevPositionRef.current.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const newVelocity = calculateVelocity(
+          newPosition,
+          prevPositionRef.current,
+          velocityRef.current,
+          timeElapsed
+        );
 
-        if (distance > MOVEMENT_THRESHOLD) {
-          const velocityX = dx / timeElapsed;
-          const velocityY = dy / timeElapsed;
+        velocityRef.current = newVelocity;
 
-          velocityRef.current = {
-            x: VELOCITY_SMOOTHING * velocityX + (1 - VELOCITY_SMOOTHING) * velocityRef.current.x,
-            y: VELOCITY_SMOOTHING * velocityY + (1 - VELOCITY_SMOOTHING) * velocityRef.current.y
-          };
+        const newRotation = calculateRotation(newVelocity);
 
-          const { x: vx, y: vy } = velocityRef.current;
-
-          if (Math.abs(vx) > 0.01 || Math.abs(vy) > 0.01) {
-            const angle = Math.atan2(vy, vx) * (180 / Math.PI) + ROTATION_OFFSET;
-            setRotation(angle);
-          }
-
-          prevPositionRef.current = newPosition;
-          lastUpdateTimeRef.current = currentTime;
+        if (newRotation !== null) {
+          setRotation(newRotation);
         }
+        prevPositionRef.current = newPosition;
+        lastUpdateTimeRef.current = currentTime;
       }
     });
   }, []);

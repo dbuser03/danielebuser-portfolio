@@ -5,10 +5,12 @@ export const CursorPositionSchema = z.object({
   y: z.number(),
 });
 
+export type Position = z.infer<typeof CursorPositionSchema>;
+
 export const CursorDotSchema = z.object({
   position: CursorPositionSchema,
   rotation: z.number(),
-  isClickLabel: z.boolean(),
+  isClickLabel: z.boolean().optional(),
 });
 
 export type CursorDotProps = z.infer<typeof CursorDotSchema>;

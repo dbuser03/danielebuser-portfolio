@@ -1,29 +1,44 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { CursorLabelProps } from "@/types/core/cursorType";
+import {
+  CLICK_LABEL_OFFSET,
+  DEFAULT_LABEL_OFFSET,
+  LABEL_CLICK,
+  LABEL_LOADING,
+  PULSE_ANIMATION_DURATION,
+  PULSE_OPACITY_VALUES,
+} from "@/constants/cursor";
 
-const CursorLabel: React.FC<CursorLabelProps> = ({
-  position,
-  label,
-}) => {
-  const isClickLabel = label === "( Click )";
-  const isLoadingLabel = label === "( Loading )";
+const CursorLabel: React.FC<CursorLabelProps> = ({ position, label }) => {
+  const isClickLabel = label === LABEL_CLICK;
+  const isLoadingLabel = label === LABEL_LOADING;
   const shouldPulse = isClickLabel || isLoadingLabel;
+
+  const labelOffset = isClickLabel ? CLICK_LABEL_OFFSET : DEFAULT_LABEL_OFFSET;
+  const labelClasses = `pointer-events-none fixed z-50 ${
+    isClickLabel ? "ml-8 text-base" : "ml-2 text-xs"
+  }`;
+
+  const pulseAnimation = {
+    opacity: shouldPulse ? PULSE_OPACITY_VALUES : 1,
+  };
+
+  const pulseTransition =
+    shouldPulse ? { duration: PULSE_ANIMATION_DURATION, repeat: Infinity } : {};
 
   return (
     <motion.div
-      className={`pointer-events-none fixed z-50 ${isClickLabel ? "ml-8 text-base" : "ml-2 text-xs"}`}
+      className={labelClasses}
       style={{
-        left: `${position.x + (isClickLabel ? 14 : 10)}px`,
+        left: `${position.x + labelOffset}px`,
         top: `${position.y}px`,
         transform: "translateY(-50%)",
         whiteSpace: "nowrap",
       }}
       initial={{ opacity: 1 }}
-      animate={{
-        opacity: shouldPulse ? [0.5, 1, 0.5] : 1,
-      }}
-      transition={shouldPulse ? { duration: 1, repeat: Infinity } : {}}
+      animate={pulseAnimation}
+      transition={pulseTransition}
     >
       {label}
     </motion.div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { UseTimezoneOptions, UseTimezoneOptionsSchema } from "@/types/layout/timezoneTypes";
+import { DEFAULT_LOCALE } from "@/constants/footer";
 
 export function useTimezone(options: Partial<UseTimezoneOptions> = {}) {
   const { timezone, updateInterval, format } = UseTimezoneOptionsSchema.parse(options);
@@ -8,7 +9,7 @@ export function useTimezone(options: Partial<UseTimezoneOptions> = {}) {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      const formatter = new Intl.DateTimeFormat("en-US", {
+      const formatter = new Intl.DateTimeFormat(DEFAULT_LOCALE, {
         ...format,
         timeZone: timezone,
       });

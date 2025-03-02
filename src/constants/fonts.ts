@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 
-export const neueHaasGroteskDisplay = localFont({
+// Path: src/app/layout.tsx
+export const NEUE_HAAS_GROTESK_DISPLAY_PRO = localFont({
   src: [
     {
       path: "../../public/fonts/neue_haas_grotesk/display/NeueHaasGroteskDisplay-Thin.otf",
@@ -76,7 +77,7 @@ export const neueHaasGroteskDisplay = localFont({
   variable: "--font-neue-haas-grotesk-display",
 });
 
-export const neueHaasGroteskText = localFont({
+export const NEUE_HAAS_GROTESK_TEXT_PRO = localFont({
   src: [
     {
       path: "../../public/fonts/neue_haas_grotesk/text/NeueHaasGroteskText-Regular.otf",
