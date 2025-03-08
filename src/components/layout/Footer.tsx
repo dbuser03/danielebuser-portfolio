@@ -11,8 +11,9 @@ import {
   TIMEZONE,
 } from "@/constants/footer";
 import { FADE_TRANSITION_DURATION } from "@/constants/shared";
+import { LoadedComponentProps } from "@/types/layout/loadedComponentTypes";
 
-const Footer = () => {
+const Footer = ({ loaded = false }: LoadedComponentProps) => {
   const { isLoaded, counter, pageNumber } = useLoadingProgress();
   const milanTime = useTimezone({
     timezone: TIMEZONE,
@@ -20,8 +21,10 @@ const Footer = () => {
     format: TIME_FORMAT,
   });
 
+  const showContent = isLoaded || loaded;
+
   const renderPageNumber = () => {
-    if (!isLoaded) return null;
+    if (!showContent) return null;
 
     if (counter === 0) {
       return (
@@ -52,7 +55,7 @@ const Footer = () => {
   };
 
   const renderLoadingCounter = () => {
-    if (isLoaded || counter <= 0) return null;
+    if (showContent || counter <= 0) return null;
 
     return (
       <div className="text-foreground text-9xl font-bold">
@@ -64,7 +67,7 @@ const Footer = () => {
   return (
     <footer className="fixed bottom-0 left-0 z-10 flex w-full items-end justify-between px-8 py-4 mix-blend-difference">
       <div className="flex-col">
-        {isLoaded && (
+        {showContent && (
           <>
             <motion.div
               initial={{ opacity: 0, y: 14 }}

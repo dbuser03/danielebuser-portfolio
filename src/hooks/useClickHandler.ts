@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useStore } from "@/store/layout/store";
 import { CLICK_LABEL_DELAY_MS } from "@/constants/landing";
+import { LABEL_DEFAULT } from "@/constants/cursor";
 
 export function useClickHandler() {
-  const loaded = useStore((state) => state.loaded);
-  const setLoaded = useStore((state) => state.setLoaded);
-
+  const [loaded, setLoaded] = useState(false);
   const [readyForClick, setReadyForClick] = useState(false);
   const [hideLabel, setHideLabel] = useState(false);
+  const [loadingComplete, setLoadingComplete] = useState(false);
+  const [labelText, setLabelText] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -23,14 +23,16 @@ export function useClickHandler() {
     if (loaded) {
       setReadyForClick(false);
       setHideLabel(true);
+      setLabelText(LABEL_DEFAULT);
     }
   }, [loaded]);
 
   useEffect(() => {
     const handleScroll = (e: WheelEvent) => {
-      if (e.deltaY > 0 && readyForClick && !loaded) {
+      if (e.deltaY > 0 && readyForClick && !loaded && loadingComplete) {
         setLoaded(true);
         setReadyForClick(false);
+        setLabelText(LABEL_DEFAULT);
       }
     };
 
@@ -39,18 +41,24 @@ export function useClickHandler() {
     return () => {
       window.removeEventListener("wheel", handleScroll);
     };
-  }, [readyForClick, loaded, setLoaded]);
+  }, [readyForClick, loaded, loadingComplete]);
 
   const handleClick = () => {
-    if (readyForClick && !loaded) {
+    if (readyForClick && !loaded && loadingComplete) {
       setLoaded(true);
       setReadyForClick(false);
+      setLabelText(LABEL_DEFAULT);
     }
   };
 
   return {
     handleClick,
     readyForClick,
-    hideLabel
+    hideLabel,
+    loaded,
+    setLoaded,
+    loadingComplete,
+    setLoadingComplete,
+    labelText
   };
 }

@@ -10,7 +10,11 @@ import {
   PULSE_OPACITY_VALUES,
 } from "@/constants/cursor";
 
-const CursorLabel: React.FC<CursorLabelProps> = ({ position, label }) => {
+const CursorLabel: React.FC<CursorLabelProps> = ({
+  position,
+  label,
+  isHoveringTitle,
+}) => {
   const isClickLabel = label === LABEL_CLICK;
   const isLoadingLabel = label === LABEL_LOADING;
   const shouldPulse = isClickLabel || isLoadingLabel;
@@ -20,12 +24,15 @@ const CursorLabel: React.FC<CursorLabelProps> = ({ position, label }) => {
     isClickLabel ? "ml-8 text-base" : "ml-2 text-xs"
   }`;
 
-  const pulseAnimation = {
-    opacity: shouldPulse ? PULSE_OPACITY_VALUES : 1,
-  };
+  const animateProps =
+    isHoveringTitle ?
+      { opacity: 0 }
+    : { opacity: shouldPulse ? PULSE_OPACITY_VALUES : 1 };
 
-  const pulseTransition =
-    shouldPulse ? { duration: PULSE_ANIMATION_DURATION, repeat: Infinity } : {};
+  const transitionProps =
+    shouldPulse && !isHoveringTitle ?
+      { duration: PULSE_ANIMATION_DURATION, repeat: Infinity }
+    : {};
 
   return (
     <motion.div
@@ -37,8 +44,8 @@ const CursorLabel: React.FC<CursorLabelProps> = ({ position, label }) => {
         whiteSpace: "nowrap",
       }}
       initial={{ opacity: 1 }}
-      animate={pulseAnimation}
-      transition={pulseTransition}
+      animate={animateProps}
+      transition={transitionProps}
     >
       {label}
     </motion.div>

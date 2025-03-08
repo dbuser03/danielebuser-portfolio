@@ -3,13 +3,14 @@ import { useColumnCount } from "@/hooks/core/useColumnCount";
 import ColumnGrid from "@/components/core/ColumnGrid";
 import CustomCursor from "@/components/core/CustomCursor";
 import { LandingScreenProps } from "@/types/landing/landingTypes";
+import { LABEL_CLICK, LABEL_DEFAULT, LABEL_LOADING } from "@/constants/cursor";
 
 const LandingScreen = ({ readyForClick, hideLabel }: LandingScreenProps) => {
   const columnCount = useColumnCount();
 
   const getCursorLabel = () => {
-    if (hideLabel) return "";
-    return readyForClick ? "( Click )" : "( Loading )";
+    if (hideLabel) return LABEL_DEFAULT;
+    return readyForClick ? LABEL_CLICK : LABEL_LOADING;
   };
 
   return (
