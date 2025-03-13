@@ -15,7 +15,7 @@ import { LoadedComponentProps } from "@/types/layout/loadedComponentTypes";
 import { useFooterStore } from "@/store/layout/footerStore";
 
 const Footer = ({ loaded = false }: LoadedComponentProps) => {
-  const { isLoaded, counter, pageNumber } = useLoadingProgress();
+  const { counter, pageNumber } = useLoadingProgress();
   const milanTime = useTimezone({
     timezone: TIMEZONE,
     updateInterval: 60000,
@@ -28,7 +28,7 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
   const locationRef = useRef(null);
   const setLocationRef = useFooterStore((state) => state.setLocationRef);
 
-  const showContent = isLoaded || loaded;
+  const showContent = loaded;
 
   useEffect(() => {
     if (pageNumberRef.current) {
@@ -54,7 +54,7 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
             duration: FADE_TRANSITION_DURATION,
             delay: SECOND_ELEMENT_DELAY,
           }}
-          className="text-sm font-normal"
+          className="text-[0.75rem] leading-[1.333] font-normal md:text-sm"
         >
           {pageNumber}
         </motion.div>
@@ -63,10 +63,10 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
 
     return (
       <motion.div
-        initial={{ opacity: 0, fontSize: "8rem", lineHeight: "1" }}
-        animate={{ opacity: 1, fontSize: "0.875rem", lineHeight: "1.25" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: FADE_TRANSITION_DURATION }}
-        className="font-normal"
+        className="page-number-animation text-[0.75rem] leading-[1.333] font-normal md:text-[0.875rem] md:leading-[1.25]"
       >
         {pageNumber}
       </motion.div>
@@ -77,14 +77,14 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
     if (showContent || counter <= 0) return null;
 
     return (
-      <div className="text-foreground text-9xl font-bold">
+      <div className="text-foreground text-5xl font-bold md:text-7xl lg:text-8xl xl:text-9xl">
         {counter.toString().padStart(3, "0")}%
       </div>
     );
   };
 
   return (
-    <footer className="fixed bottom-0 left-0 z-10 flex w-full items-end justify-between px-8 py-4 mix-blend-difference">
+    <footer className="fixed bottom-0 left-0 z-10 flex w-full items-end justify-between px-4 py-4 mix-blend-difference sm:px-8">
       <div className="flex-col" ref={locationRef}>
         {showContent && (
           <>
@@ -95,7 +95,7 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
                 duration: FADE_TRANSITION_DURATION,
                 delay: FIRST_ELEMENT_DELAY,
               }}
-              className="flex items-center text-base"
+              className="flex items-center text-xs md:text-sm"
             >
               {CITY_NAME} - <span className="ml-1">{milanTime}</span>
             </motion.div>
@@ -106,7 +106,7 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
                 duration: FADE_TRANSITION_DURATION,
                 delay: SECOND_ELEMENT_DELAY,
               }}
-              className="text-sm text-[var(--neutral)]"
+              className="text-xs text-[var(--neutral)] md:text-sm"
             >
               {COORDINATES}
             </motion.div>

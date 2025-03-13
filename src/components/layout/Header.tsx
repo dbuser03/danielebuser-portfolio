@@ -61,7 +61,7 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
             }
           : { duration: 0 }
         }
-        className="text-xl font-bold"
+        className="text-base font-bold md:text-xl"
       >
         DANIELE BUSER
       </motion.div>
@@ -77,7 +77,7 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
             }
           : { duration: 0 }
         }
-        className="text-sm text-[var(--neutral)]"
+        className="text-xs text-[var(--neutral)] md:text-sm"
       >
         Creative Developer
       </motion.div>
@@ -85,7 +85,7 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
   );
 
   return (
-    <header className="items-top fixed top-0 left-0 z-10 flex w-full justify-between px-8 py-4 mix-blend-difference">
+    <header className="items-top fixed top-0 left-0 z-10 flex w-full justify-between px-4 py-4 mix-blend-difference sm:px-8">
       <div className="flex-col" ref={titleRef}>
         {showContent ?
           <Link href="/" className="block">
@@ -95,7 +95,7 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
       </div>
 
       {showContent && (
-        <nav className="flex h-min flex-wrap items-start space-x-12 text-sm text-[var(--neutral)]">
+        <nav className="flex h-min flex-wrap items-start space-x-4 text-xs text-[var(--neutral)] md:space-x-12 md:text-sm">
           {DEFAULT_MENU_ITEMS.map((item: MenuItem, index: number) => (
             <motion.div
               key={item.href}

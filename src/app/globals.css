@@ -9,7 +9,7 @@
 }
 
 * {
-    cursor: none !important;
+    cursor: none;
 }
 
 body {
@@ -21,4 +21,58 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-neue-haas-grotesk-display), sans-serif;
+}
+
+.page-number-animation {
+  animation: resizeText 0.5s ease-out;
+}
+
+@keyframes resizeText {
+  from {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  to {
+    font-size: 0.75rem;
+    line-height: 1.333;
+  }
+}
+
+@media (min-width: 768px) {
+  @keyframes resizeText {
+    from {
+      font-size: 4.5rem;
+      line-height: 1;
+    }
+    to {
+      font-size: 0.875rem;
+      line-height: 1.25;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  @keyframes resizeText {
+    from {
+      font-size: 6rem;
+      line-height: 1;
+    }
+    to {
+      font-size: 0.875rem;
+      line-height: 1.25;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  @keyframes resizeText {
+    from {
+      font-size: 8rem;
+      line-height: 1;
+    }
+    to {
+      font-size: 0.875rem;
+      line-height: 1.25;
+    }
+  }
 }

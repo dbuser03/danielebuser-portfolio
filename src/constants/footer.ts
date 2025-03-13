@@ -1,6 +1,6 @@
 // Path: /src/components/layout/Footer.tsx
-export const FIRST_ELEMENT_DELAY = 1;
-export const SECOND_ELEMENT_DELAY = 1.5;
+export const FIRST_ELEMENT_DELAY = typeof window !== 'undefined' && window.innerWidth < 768 ? 0.5 : 1;
+export const SECOND_ELEMENT_DELAY = FIRST_ELEMENT_DELAY === 0.5 ? 1 : 1.5;
 export const CITY_NAME = "MILANO";
 export const COORDINATES = "45°27′40.68″ N - 9°09′34.20″ E";
 export const TIMEZONE = "Europe/Rome";

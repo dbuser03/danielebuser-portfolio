@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useClickHandler } from "@/hooks/useClickHandler";
 import { useLoadingProgress } from "@/hooks/layout/useLoadingProgress";
+import { useDeviceDetection } from "@/hooks/core/useDeviceDetection";
 
 export function useHomePageLogic() {
   const {
@@ -14,6 +15,7 @@ export function useHomePageLogic() {
   } = useClickHandler();
 
   const { counter, setIsLoaded } = useLoadingProgress();
+  const { isTouchDevice } = useDeviceDetection();
 
   useEffect(() => {
     if (counter === 100 && !loaded) {
@@ -26,6 +28,13 @@ export function useHomePageLogic() {
       setIsLoaded(true);
     }
   }, [loaded, setIsLoaded]);
+
+  useEffect(() => {
+    const isReadyToAutoClick = readyForClick && counter === 100 && !loaded && isTouchDevice;
+    if (isReadyToAutoClick) {
+      handleClick();
+    }
+  }, [readyForClick, counter, loaded, isTouchDevice, handleClick]);
 
   const isClickReady = readyForClick && counter === 100;
 

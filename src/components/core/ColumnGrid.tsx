@@ -17,7 +17,7 @@ const ColumnGrid: React.FC<ColumnGridProps> = ({
     "md:grid-cols-8",
     "lg:grid-cols-10",
     "xl:grid-cols-12",
-    "gap-x-4 px-8",
+    "gap-x-4 px-4 sm:px-8",
     className,
   ].join(" ");
 
