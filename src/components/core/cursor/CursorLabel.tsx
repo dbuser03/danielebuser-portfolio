@@ -14,6 +14,7 @@ const CursorLabel: React.FC<CursorLabelProps> = ({
   position,
   label,
   isHoveringTitle,
+  isHoveringPageNumber,
 }) => {
   const isClickLabel = label === LABEL_CLICK;
   const isLoadingLabel = label === LABEL_LOADING;
@@ -25,12 +26,12 @@ const CursorLabel: React.FC<CursorLabelProps> = ({
   }`;
 
   const animateProps =
-    isHoveringTitle ?
+    isHoveringTitle || isHoveringPageNumber ?
       { opacity: 0 }
     : { opacity: shouldPulse ? PULSE_OPACITY_VALUES : 1 };
 
   const transitionProps =
-    shouldPulse && !isHoveringTitle ?
+    shouldPulse && !isHoveringTitle && !isHoveringPageNumber ?
       { duration: PULSE_ANIMATION_DURATION, repeat: Infinity }
     : {};
 

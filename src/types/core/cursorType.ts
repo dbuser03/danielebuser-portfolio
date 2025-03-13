@@ -12,6 +12,9 @@ export const CursorDotSchema = z.object({
   rotation: z.number(),
   isClickLabel: z.boolean().optional(),
   isHoveringTitle: z.boolean().optional(),
+  isHoveringPageNumber: z.boolean().optional(),
+  isHoveringLocation: z.boolean().optional(),
+  isHoveringMenuItem: z.boolean().optional(),
   label: z.string().optional(),
 });
 
@@ -21,6 +24,7 @@ export const CursorLabelSchema = z.object({
   position: CursorPositionSchema,
   label: z.string(),
   isHoveringTitle: z.boolean().optional(),
+  isHoveringPageNumber: z.boolean().optional(),
 });
 
 export type CursorLabelProps = z.infer<typeof CursorLabelSchema>;

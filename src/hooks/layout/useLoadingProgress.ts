@@ -8,8 +8,6 @@ export function useLoadingProgress() {
   const [counter, setCounter] = useState(0);
   const pageNumber = DEFAULT_PAGE_NUMBER;
 
-  // Remove the automatic timeout that sets isLoaded to true
-
   useEffect(() => {
     if (!isLoaded) {
       const interval = setInterval(() => {
@@ -29,7 +27,7 @@ export function useLoadingProgress() {
 
   return {
     isLoaded,
-    setIsLoaded, // Export the setter so we can control it from outside
+    setIsLoaded,
     counter,
     pageNumber,
   };

@@ -15,25 +15,35 @@ const CursorDot: React.FC<CursorDotProps> = ({
   rotation,
   isClickLabel,
   isHoveringTitle = false,
+  isHoveringPageNumber = false,
+  isHoveringLocation = false,
+  isHoveringMenuItem = false,
   label,
 }) => {
+  const isHoveringInteractive =
+    isHoveringTitle ||
+    isHoveringPageNumber ||
+    isHoveringLocation ||
+    isHoveringMenuItem;
+
   const cursorSize =
-    isClickLabel && isHoveringTitle ? CURSOR_EXPANDED_SIZE / 1.6
+    isClickLabel && isHoveringInteractive ? CURSOR_EXPANDED_SIZE / 1.6
     : isClickLabel ? CURSOR_EXPANDED_SIZE
-    : label === LABEL_DEFAULT && isHoveringTitle ?
+    : (label === LABEL_DEFAULT && isHoveringTitle) || isHoveringMenuItem ?
       CURSOR_DEFAULT_SIZE * (10 / 3)
     : CURSOR_DEFAULT_SIZE;
 
   const cursorAnimation = {
     width: cursorSize,
     height: cursorSize,
-    backgroundColor: isHoveringTitle ? "var(--foreground)" : "var(--cursor)",
+    backgroundColor:
+      isHoveringInteractive ? "var(--foreground)" : "var(--cursor)",
   };
 
   const arrowAnimation = {
     scale: 2,
     rotate: rotation,
-    opacity: isHoveringTitle ? 0 : 1,
+    opacity: isHoveringInteractive ? 0 : 1,
   };
 
   return (

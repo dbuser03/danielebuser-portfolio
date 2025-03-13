@@ -8,7 +8,14 @@ import { CustomCursorProps } from "@/types/core/cursorType";
 import { LABEL_CLICK } from "@/constants/cursor";
 
 const CustomCursor = ({ label }: CustomCursorProps = {}) => {
-  const { position, rotation, isHoveringTitle } = useCursorPosition(label);
+  const {
+    position,
+    rotation,
+    isHoveringTitle,
+    isHoveringPageNumber,
+    isHoveringLocation,
+    isHoveringMenuItem,
+  } = useCursorPosition(label);
   const isClickLabel = label === LABEL_CLICK;
 
   return (
@@ -18,6 +25,9 @@ const CustomCursor = ({ label }: CustomCursorProps = {}) => {
         rotation={rotation}
         isClickLabel={isClickLabel}
         isHoveringTitle={isHoveringTitle}
+        isHoveringPageNumber={isHoveringPageNumber}
+        isHoveringLocation={isHoveringLocation}
+        isHoveringMenuItem={isHoveringMenuItem}
         label={label}
       />
 
@@ -26,6 +36,7 @@ const CustomCursor = ({ label }: CustomCursorProps = {}) => {
           position={position}
           label={label}
           isHoveringTitle={isHoveringTitle}
+          isHoveringPageNumber={isHoveringPageNumber}
         />
       )}
     </>

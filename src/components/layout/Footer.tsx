@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLoadingProgress } from "@/hooks/layout/useLoadingProgress";
 import { useTimezone } from "@/hooks/layout/useTimezone";
@@ -12,6 +12,7 @@ import {
 } from "@/constants/footer";
 import { FADE_TRANSITION_DURATION } from "@/constants/shared";
 import { LoadedComponentProps } from "@/types/layout/loadedComponentTypes";
+import { useFooterStore } from "@/store/layout/footerStore";
 
 const Footer = ({ loaded = false }: LoadedComponentProps) => {
   const { isLoaded, counter, pageNumber } = useLoadingProgress();
@@ -21,7 +22,25 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
     format: TIME_FORMAT,
   });
 
+  const pageNumberRef = useRef(null);
+  const setPageNumberRef = useFooterStore((state) => state.setPageNumberRef);
+
+  const locationRef = useRef(null);
+  const setLocationRef = useFooterStore((state) => state.setLocationRef);
+
   const showContent = isLoaded || loaded;
+
+  useEffect(() => {
+    if (pageNumberRef.current) {
+      setPageNumberRef(pageNumberRef.current);
+    }
+  }, [pageNumberRef, setPageNumberRef]);
+
+  useEffect(() => {
+    if (locationRef.current) {
+      setLocationRef(locationRef.current);
+    }
+  }, [locationRef, setLocationRef]);
 
   const renderPageNumber = () => {
     if (!showContent) return null;
@@ -66,7 +85,7 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
 
   return (
     <footer className="fixed bottom-0 left-0 z-10 flex w-full items-end justify-between px-8 py-4 mix-blend-difference">
-      <div className="flex-col">
+      <div className="flex-col" ref={locationRef}>
         {showContent && (
           <>
             <motion.div
@@ -95,8 +114,10 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
         )}
       </div>
 
-      {renderPageNumber()}
-      {renderLoadingCounter()}
+      <div ref={pageNumberRef}>
+        {renderPageNumber()}
+        {renderLoadingCounter()}
+      </div>
     </footer>
   );
 };

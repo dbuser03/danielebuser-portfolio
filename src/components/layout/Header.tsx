@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { useLoadingProgress } from "@/hooks/layout/useLoadingProgress";
 import { FADE_TRANSITION_DURATION } from "@/constants/shared";
 import {
   MENU_ITEM_DELAY_INCREMENT,
@@ -9,24 +8,32 @@ import {
   TITLE_DELAY,
   DEFAULT_MENU_ITEMS,
 } from "@/constants/header";
-import { useTitleStore } from "@/store/layout/titleStore";
+import { useHeaderStore } from "@/store/layout/headerStore";
 import { MenuItem } from "@/types/layout/menuTypes";
 import { LoadedComponentProps } from "@/types/layout/loadedComponentTypes";
 
 const Header = ({ loaded = false }: LoadedComponentProps) => {
-  const { isLoaded } = useLoadingProgress();
   const titleRef = useRef(null);
-  const titleContainerRef = useRef(null);
-  const setTitleRef = useTitleStore((state) => state.setTitleRef);
+  const setTitleRef = useHeaderStore((state) => state.setTitleRef);
 
-  const showContent = isLoaded || loaded;
+  const menuItemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const setMenuItemsRef = useHeaderStore((state) => state.setMenuItemsRef);
+
+  const showContent = loaded;
   const shouldAnimateTitle = !loaded;
 
   useEffect(() => {
-    if (titleContainerRef.current) {
-      setTitleRef(titleContainerRef.current);
+    if (titleRef.current) {
+      setTitleRef(titleRef.current);
     }
-  }, [titleContainerRef, setTitleRef]);
+  }, [titleRef, setTitleRef]);
+
+  useEffect(() => {
+    const validRefs = menuItemsRef.current.filter((ref) => ref !== null);
+    if (validRefs.length > 0) {
+      setMenuItemsRef(validRefs);
+    }
+  }, [showContent, setMenuItemsRef]);
 
   const titleVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
@@ -41,7 +48,7 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
   };
 
   const renderTitleContent = () => (
-    <div ref={titleRef}>
+    <>
       <motion.div
         variants={titleVariants}
         initial={shouldAnimateTitle ? "hidden" : "immediate"}
@@ -74,12 +81,12 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
       >
         Creative Developer
       </motion.div>
-    </div>
+    </>
   );
 
   return (
     <header className="items-top fixed top-0 left-0 z-10 flex w-full justify-between px-8 py-4 mix-blend-difference">
-      <div className="flex-col" ref={titleContainerRef}>
+      <div className="flex-col" ref={titleRef}>
         {showContent ?
           <Link href="/" className="block">
             {renderTitleContent()}
@@ -88,7 +95,7 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
       </div>
 
       {showContent && (
-        <nav className="flex space-x-12 text-sm text-[var(--neutral)]">
+        <nav className="flex h-min flex-wrap items-start space-x-12 text-sm text-[var(--neutral)]">
           {DEFAULT_MENU_ITEMS.map((item: MenuItem, index: number) => (
             <motion.div
               key={item.href}
@@ -98,8 +105,16 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
                 duration: FADE_TRANSITION_DURATION,
                 delay: SUBTITLE_DELAY + index * MENU_ITEM_DELAY_INCREMENT,
               }}
+              ref={(el) => {
+                menuItemsRef.current[index] = el;
+              }}
             >
-              <Link href={item.href}>{item.label}</Link>
+              <Link
+                href={item.href}
+                className="transition-colors duration-200 hover:text-[var(--foreground)]"
+              >
+                {item.label}
+              </Link>
             </motion.div>
           ))}
         </nav>
