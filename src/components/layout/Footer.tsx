@@ -9,23 +9,36 @@ import {
   SECOND_ELEMENT_DELAY,
   TIME_FORMAT,
   TIMEZONE,
+  UPDATE_TIME,
 } from "@/constants/footer";
 import { FADE_TRANSITION_DURATION } from "@/constants/shared";
 import { LoadedComponentProps } from "@/types/layout/loadedComponentTypes";
 import { useFooterStore } from "@/store/layout/footerStore";
 
-const Footer = ({ loaded = false }: LoadedComponentProps) => {
+const fadeInUpVariants = {
+  hidden: { opacity: 0, y: 14 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: FADE_TRANSITION_DURATION,
+      delay,
+    },
+  }),
+};
+
+const Footer: React.FC<LoadedComponentProps> = ({ loaded = false }) => {
   const { counter, pageNumber } = useLoadingProgress();
   const milanTime = useTimezone({
     timezone: TIMEZONE,
-    updateInterval: 60000,
+    updateInterval: UPDATE_TIME,
     format: TIME_FORMAT,
   });
 
-  const pageNumberRef = useRef(null);
+  const pageNumberRef = useRef<HTMLDivElement>(null);
   const setPageNumberRef = useFooterStore((state) => state.setPageNumberRef);
 
-  const locationRef = useRef(null);
+  const locationRef = useRef<HTMLDivElement>(null);
   const setLocationRef = useFooterStore((state) => state.setLocationRef);
 
   const showContent = loaded;
@@ -42,19 +55,18 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
     }
   }, [locationRef, setLocationRef]);
 
-  const renderPageNumber = () => {
+  const renderPageNumber = (): React.ReactNode => {
     if (!showContent) return null;
 
     if (counter === 0) {
       return (
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: FADE_TRANSITION_DURATION,
-            delay: SECOND_ELEMENT_DELAY,
-          }}
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUpVariants}
+          custom={SECOND_ELEMENT_DELAY}
           className="text-[0.75rem] leading-[1.333] font-normal md:text-sm"
+          aria-live="polite"
         >
           {pageNumber}
         </motion.div>
@@ -67,17 +79,23 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
         animate={{ opacity: 1 }}
         transition={{ duration: FADE_TRANSITION_DURATION }}
         className="page-number-animation text-[0.75rem] leading-[1.333] font-normal md:text-[0.875rem] md:leading-[1.25]"
+        aria-live="polite"
       >
         {pageNumber}
       </motion.div>
     );
   };
 
-  const renderLoadingCounter = () => {
+  const renderLoadingCounter = (): React.ReactNode => {
     if (showContent || counter <= 0) return null;
 
     return (
-      <div className="text-foreground text-5xl font-bold md:text-7xl lg:text-8xl xl:text-9xl">
+      <div
+        className="text-foreground text-5xl font-bold md:text-7xl lg:text-8xl xl:text-9xl"
+        aria-live="polite"
+        role="status"
+        aria-label={`Caricamento pagina al ${counter}%`}
+      >
         {counter.toString().padStart(3, "0")}%
       </div>
     );
@@ -89,23 +107,19 @@ const Footer = ({ loaded = false }: LoadedComponentProps) => {
         {showContent && (
           <>
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: FADE_TRANSITION_DURATION,
-                delay: FIRST_ELEMENT_DELAY,
-              }}
+              initial="hidden"
+              animate="visible"
+              variants={fadeInUpVariants}
+              custom={FIRST_ELEMENT_DELAY}
               className="flex items-center text-xs md:text-sm"
             >
               {CITY_NAME} - <span className="ml-1">{milanTime}</span>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: FADE_TRANSITION_DURATION,
-                delay: SECOND_ELEMENT_DELAY,
-              }}
+              initial="hidden"
+              animate="visible"
+              variants={fadeInUpVariants}
+              custom={SECOND_ELEMENT_DELAY}
               className="text-xs text-[var(--neutral)] md:text-sm"
             >
               {COORDINATES}

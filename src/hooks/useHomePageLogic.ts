@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useClickHandler } from "@/hooks/useClickHandler";
 import { useLoadingProgress } from "@/hooks/layout/useLoadingProgress";
 import { useDeviceDetection } from "@/hooks/core/useDeviceDetection";
@@ -17,11 +17,18 @@ export function useHomePageLogic() {
   const { counter, setIsLoaded } = useLoadingProgress();
   const { isTouchDevice } = useDeviceDetection();
 
+  const isLoadingComplete = useMemo(() => counter === 100, [counter]);
+
+  const isClickReady = useMemo(() =>
+    readyForClick && isLoadingComplete,
+    [readyForClick, isLoadingComplete]
+  );
+
   useEffect(() => {
-    if (counter === 100 && !loaded) {
+    if (isLoadingComplete && !loaded) {
       setLoadingComplete(true);
     }
-  }, [counter, loaded, setLoadingComplete]);
+  }, [isLoadingComplete, loaded, setLoadingComplete]);
 
   useEffect(() => {
     if (loaded) {
@@ -30,13 +37,12 @@ export function useHomePageLogic() {
   }, [loaded, setIsLoaded]);
 
   useEffect(() => {
-    const isReadyToAutoClick = readyForClick && counter === 100 && !loaded && isTouchDevice;
-    if (isReadyToAutoClick) {
+    const shouldAutoClick = readyForClick && isLoadingComplete && !loaded && isTouchDevice;
+
+    if (shouldAutoClick) {
       handleClick();
     }
-  }, [readyForClick, counter, loaded, isTouchDevice, handleClick]);
-
-  const isClickReady = readyForClick && counter === 100;
+  }, [readyForClick, isLoadingComplete, loaded, isTouchDevice, handleClick]);
 
   return {
     handleClick,

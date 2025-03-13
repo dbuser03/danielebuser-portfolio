@@ -12,15 +12,14 @@ import { useHeaderStore } from "@/store/layout/headerStore";
 import { MenuItem } from "@/types/layout/menuTypes";
 import { LoadedComponentProps } from "@/types/layout/loadedComponentTypes";
 
-const Header = ({ loaded = false }: LoadedComponentProps) => {
-  const titleRef = useRef(null);
+const Header: React.FC<LoadedComponentProps> = ({ loaded = false }) => {
+  const titleRef = useRef<HTMLDivElement>(null);
   const setTitleRef = useHeaderStore((state) => state.setTitleRef);
 
   const menuItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const setMenuItemsRef = useHeaderStore((state) => state.setMenuItemsRef);
 
   const showContent = loaded;
-  const shouldAnimateTitle = !loaded;
 
   useEffect(() => {
     if (titleRef.current) {
@@ -29,9 +28,9 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
   }, [titleRef, setTitleRef]);
 
   useEffect(() => {
-    const validRefs = menuItemsRef.current.filter((ref) => ref !== null);
+    const validRefs = menuItemsRef.current.filter(Boolean);
     if (validRefs.length > 0) {
-      setMenuItemsRef(validRefs);
+      setMenuItemsRef(validRefs as HTMLDivElement[]);
     }
   }, [showContent, setMenuItemsRef]);
 
@@ -47,36 +46,34 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
     immediate: { opacity: 1, y: 0, transition: { duration: 0 } },
   };
 
+  const getTitleTransition = () => {
+    return loaded ?
+        { duration: 0 }
+      : { duration: FADE_TRANSITION_DURATION, delay: TITLE_DELAY };
+  };
+
+  const getSubtitleTransition = () => {
+    return loaded ?
+        { duration: 0 }
+      : { duration: FADE_TRANSITION_DURATION, delay: SUBTITLE_DELAY };
+  };
+
   const renderTitleContent = () => (
     <>
       <motion.div
         variants={titleVariants}
-        initial={shouldAnimateTitle ? "hidden" : "immediate"}
+        initial={loaded ? "immediate" : "hidden"}
         animate="visible"
-        transition={
-          shouldAnimateTitle ?
-            {
-              duration: FADE_TRANSITION_DURATION,
-              delay: TITLE_DELAY,
-            }
-          : { duration: 0 }
-        }
+        transition={getTitleTransition()}
         className="text-base font-bold md:text-xl"
       >
         DANIELE BUSER
       </motion.div>
       <motion.div
         variants={subtitleVariants}
-        initial={shouldAnimateTitle ? "hidden" : "immediate"}
+        initial={loaded ? "immediate" : "hidden"}
         animate="visible"
-        transition={
-          shouldAnimateTitle ?
-            {
-              duration: FADE_TRANSITION_DURATION,
-              delay: SUBTITLE_DELAY,
-            }
-          : { duration: 0 }
-        }
+        transition={getSubtitleTransition()}
         className="text-xs text-[var(--neutral)] md:text-sm"
       >
         Creative Developer
@@ -112,6 +109,7 @@ const Header = ({ loaded = false }: LoadedComponentProps) => {
               <Link
                 href={item.href}
                 className="transition-colors duration-200 hover:text-[var(--foreground)]"
+                aria-label={`Naviga a ${item.label}`}
               >
                 {item.label}
               </Link>

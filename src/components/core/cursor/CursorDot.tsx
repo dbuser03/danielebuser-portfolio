@@ -20,18 +20,30 @@ const CursorDot: React.FC<CursorDotProps> = ({
   isHoveringMenuItem = false,
   label,
 }) => {
-  const isHoveringInteractive =
+  const isHoveringInteractive: boolean =
     isHoveringTitle ||
     isHoveringPageNumber ||
     isHoveringLocation ||
     isHoveringMenuItem;
 
-  const cursorSize =
-    isClickLabel && isHoveringInteractive ? CURSOR_EXPANDED_SIZE / 1.6
-    : isClickLabel ? CURSOR_EXPANDED_SIZE
-    : (label === LABEL_DEFAULT && isHoveringTitle) || isHoveringMenuItem ?
-      CURSOR_DEFAULT_SIZE * (10 / 3)
-    : CURSOR_DEFAULT_SIZE;
+  const getCursorSize = (): number => {
+    if (isClickLabel && isHoveringInteractive) {
+      return CURSOR_EXPANDED_SIZE / 1.6;
+    }
+    if (isClickLabel) {
+      return CURSOR_EXPANDED_SIZE;
+    }
+    if ((label === LABEL_DEFAULT && isHoveringTitle) || isHoveringMenuItem) {
+      return CURSOR_DEFAULT_SIZE * (10 / 3);
+    }
+    return CURSOR_DEFAULT_SIZE;
+  };
+
+  const cursorSize = getCursorSize();
+
+  const transitionConfig = {
+    duration: TRANSITION_DURATION,
+  };
 
   const cursorAnimation = {
     width: cursorSize,
@@ -62,10 +74,10 @@ const CursorDot: React.FC<CursorDotProps> = ({
       }}
       animate={cursorAnimation}
       transition={{
-        duration: TRANSITION_DURATION,
-        backgroundColor: { duration: TRANSITION_DURATION },
-        width: { duration: TRANSITION_DURATION },
-        height: { duration: TRANSITION_DURATION },
+        ...transitionConfig,
+        backgroundColor: transitionConfig,
+        width: transitionConfig,
+        height: transitionConfig,
       }}
     >
       {isClickLabel && (
@@ -73,9 +85,9 @@ const CursorDot: React.FC<CursorDotProps> = ({
           initial={{ scale: 1, opacity: 1 }}
           animate={arrowAnimation}
           transition={{
-            duration: TRANSITION_DURATION,
+            ...transitionConfig,
             rotate: SPRING_CONFIG,
-            opacity: { duration: TRANSITION_DURATION },
+            opacity: transitionConfig,
           }}
         >
           <MdArrowUpward />
@@ -85,4 +97,4 @@ const CursorDot: React.FC<CursorDotProps> = ({
   );
 };
 
-export default CursorDot;
+export default React.memo(CursorDot);

@@ -26,126 +26,86 @@ export const useCursorPosition = (label?: string) => {
   const isClickLabel = label === LABEL_CLICK;
 
   useEffect(() => {
-    const updatePosition = (e: { clientX: number; clientY: number; }) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-
-      const cursorSize = isClickLabel ? CURSOR_EXPANDED_SIZE : CURSOR_DEFAULT_SIZE;
-      const cursorRadius = cursorSize / 2;
-
-      const labelOffset = isClickLabel ? CLICK_LABEL_OFFSET : DEFAULT_LABEL_OFFSET;
-      const labelWidth = labelWidthRef.current || 0;
-
-      const dotLeftEdge = e.clientX - cursorRadius;
-      const dotRightEdge = e.clientX + cursorRadius;
-      const dotTopEdge = e.clientY - cursorRadius;
-      const dotBottomEdge = e.clientY + cursorRadius;
-
-      const labelRightEdge = e.clientX + labelOffset + labelWidth;
-
-      if (titleRef) {
-        const titleRect = titleRef.getBoundingClientRect();
-
-        const isDotHovering =
-          dotRightEdge >= titleRect.left &&
-          dotLeftEdge <= titleRect.right &&
-          dotBottomEdge >= titleRect.top &&
-          dotTopEdge <= titleRect.bottom;
-
-        const isLabelHovering =
-          !!label &&
-          e.clientX + labelOffset <= titleRect.right &&
-          labelRightEdge >= titleRect.left &&
-          e.clientY >= titleRect.top &&
-          e.clientY <= titleRect.bottom;
-
-        setIsHoveringTitle(isDotHovering || isLabelHovering);
-      }
-
-      if (pageNumberRef) {
-        const pageNumberRect = pageNumberRef.getBoundingClientRect();
-
-        const isDotHovering =
-          dotRightEdge >= pageNumberRect.left &&
-          dotLeftEdge <= pageNumberRect.right &&
-          dotBottomEdge >= pageNumberRect.top &&
-          dotTopEdge <= pageNumberRect.bottom;
-
-        const isLabelHovering =
-          !!label &&
-          e.clientX + labelOffset <= pageNumberRect.right &&
-          labelRightEdge >= pageNumberRect.left &&
-          e.clientY >= pageNumberRect.top &&
-          e.clientY <= pageNumberRect.bottom;
-
-        setIsHoveringPageNumber(isDotHovering || isLabelHovering);
-      }
-
-      if (locationRef) {
-        const locationRect = locationRef.getBoundingClientRect();
-
-        const isDotHovering =
-          dotRightEdge >= locationRect.left &&
-          dotLeftEdge <= locationRect.right &&
-          dotBottomEdge >= locationRect.top &&
-          dotTopEdge <= locationRect.bottom;
-
-        const isLabelHovering =
-          !!label &&
-          e.clientX + labelOffset <= locationRect.right &&
-          labelRightEdge >= locationRect.left &&
-          e.clientY >= locationRect.top &&
-          e.clientY <= locationRect.bottom;
-
-        setIsHoveringLocation(isDotHovering || isLabelHovering);
-      }
-
-      if (menuItemsRef && menuItemsRef.length > 0) {
-        let isHovering = false;
-
-        for (const menuItemRef of menuItemsRef) {
-          if (menuItemRef) {
-            const menuItemRect = menuItemRef.getBoundingClientRect();
-
-            const isDotHovering =
-              dotRightEdge >= menuItemRect.left &&
-              dotLeftEdge <= menuItemRect.right &&
-              dotBottomEdge >= menuItemRect.top &&
-              dotTopEdge <= menuItemRect.bottom;
-
-            const isLabelHovering =
-              !!label &&
-              e.clientX + labelOffset <= menuItemRect.right &&
-              labelRightEdge >= menuItemRect.left &&
-              e.clientY >= menuItemRect.top &&
-              e.clientY <= menuItemRect.bottom;
-
-            if (isDotHovering || isLabelHovering) {
-              isHovering = true;
-              break;
-            }
-          }
-        }
-
-        setIsHoveringMenuItem(isHovering);
-      }
-    };
-
-    const updateRotation = (e: { movementX: number; movementY: number; }) => {
-      const movementX = e.movementX;
-      const movementY = e.movementY;
-
-      if (movementX !== 0 || movementY !== 0) {
-        const angle = Math.atan2(movementY, movementX) * (180 / Math.PI) + 90;
-        setRotation(angle);
-      }
-    };
-
     if (label) {
       const charWidth = isClickLabel ? 10 : 7;
       labelWidthRef.current = label.length * charWidth;
     } else {
       labelWidthRef.current = 0;
     }
+
+    const checkElementHover = (
+      element: HTMLElement | null,
+      cursorInfo: {
+        cursorRadius: number,
+        x: number,
+        y: number,
+        labelOffset: number,
+        labelWidth: number
+      }
+    ): boolean => {
+      if (!element) return false;
+
+      const { cursorRadius, x, y, labelOffset, labelWidth } = cursorInfo;
+      const elementRect = element.getBoundingClientRect();
+
+      const dotLeftEdge = x - cursorRadius;
+      const dotRightEdge = x + cursorRadius;
+      const dotTopEdge = y - cursorRadius;
+      const dotBottomEdge = y + cursorRadius;
+      const labelRightEdge = x + labelOffset + labelWidth;
+
+      const isDotHovering =
+        dotRightEdge >= elementRect.left &&
+        dotLeftEdge <= elementRect.right &&
+        dotBottomEdge >= elementRect.top &&
+        dotTopEdge <= elementRect.bottom;
+
+      const isLabelHovering =
+        !!label &&
+        x + labelOffset <= elementRect.right &&
+        labelRightEdge >= elementRect.left &&
+        y >= elementRect.top &&
+        y <= elementRect.bottom;
+
+      return isDotHovering || isLabelHovering;
+    };
+
+    const updatePosition = (e: { clientX: number; clientY: number; }) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+
+      const cursorSize = isClickLabel ? CURSOR_EXPANDED_SIZE : CURSOR_DEFAULT_SIZE;
+      const cursorRadius = cursorSize / 2;
+      const labelOffset = isClickLabel ? CLICK_LABEL_OFFSET : DEFAULT_LABEL_OFFSET;
+      const labelWidth = labelWidthRef.current;
+
+      const cursorInfo = {
+        cursorRadius,
+        x: e.clientX,
+        y: e.clientY,
+        labelOffset,
+        labelWidth
+      };
+
+      setIsHoveringTitle(checkElementHover(titleRef ?? null, cursorInfo));
+      setIsHoveringPageNumber(checkElementHover(pageNumberRef ?? null, cursorInfo));
+      setIsHoveringLocation(checkElementHover(locationRef ?? null, cursorInfo));
+
+      if (menuItemsRef && menuItemsRef.length > 0) {
+        const isHovering = menuItemsRef.some(menuItem =>
+          menuItem && checkElementHover(menuItem, cursorInfo)
+        );
+        setIsHoveringMenuItem(isHovering);
+      }
+    };
+
+    const updateRotation = (e: { movementX: number; movementY: number; }) => {
+      const { movementX, movementY } = e;
+
+      if (movementX !== 0 || movementY !== 0) {
+        const angle = Math.atan2(movementY, movementX) * (180 / Math.PI) + 90;
+        setRotation(angle);
+      }
+    };
 
     window.addEventListener("mousemove", updatePosition);
     window.addEventListener("mousemove", updateRotation);

@@ -21,9 +21,11 @@ const ColumnGrid: React.FC<ColumnGridProps> = ({
     className,
   ].join(" ");
 
+  const adjustedColumnCount = Math.min(columnCount, 12);
+
   return (
-    <div className={gridContainerClass}>
-      {Array.from({ length: columnCount }).map((_, index) => (
+    <div className={gridContainerClass} aria-hidden="true" role="presentation">
+      {Array.from({ length: adjustedColumnCount }).map((_, index) => (
         <div
           key={index}
           style={{ opacity }}

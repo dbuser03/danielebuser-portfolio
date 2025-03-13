@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { CursorLabelProps } from "@/types/core/cursorType";
 import {
@@ -18,22 +18,47 @@ const CursorLabel: React.FC<CursorLabelProps> = ({
 }) => {
   const isClickLabel = label === LABEL_CLICK;
   const isLoadingLabel = label === LABEL_LOADING;
-  const shouldPulse = isClickLabel || isLoadingLabel;
 
-  const labelOffset = isClickLabel ? CLICK_LABEL_OFFSET : DEFAULT_LABEL_OFFSET;
-  const labelClasses = `pointer-events-none fixed z-50 ${
-    isClickLabel ? "ml-8 text-base" : "ml-2 text-xs"
-  }`;
+  const { labelOffset, labelClasses, animateProps, transitionProps } =
+    useMemo(() => {
+      const shouldPulse = isClickLabel || isLoadingLabel;
+      const labelOffset =
+        isClickLabel ? CLICK_LABEL_OFFSET : DEFAULT_LABEL_OFFSET;
+      const labelClasses = `pointer-events-none fixed z-50 ${
+        isClickLabel ? "ml-8 text-base" : "ml-2 text-xs"
+      }`;
 
-  const animateProps =
-    isHoveringTitle || isHoveringPageNumber ?
-      { opacity: 0 }
-    : { opacity: shouldPulse ? PULSE_OPACITY_VALUES : 1 };
+      const isHovering = isHoveringTitle || isHoveringPageNumber;
+      const animateProps =
+        isHovering ?
+          { opacity: 0 }
+        : { opacity: shouldPulse ? PULSE_OPACITY_VALUES : 1 };
 
-  const transitionProps =
-    shouldPulse && !isHoveringTitle && !isHoveringPageNumber ?
-      { duration: PULSE_ANIMATION_DURATION, repeat: Infinity }
-    : {};
+      const transitionProps =
+        shouldPulse && !isHovering ?
+          { duration: PULSE_ANIMATION_DURATION, repeat: Infinity }
+        : {};
+
+      const ariaLabel =
+        isClickLabel ? "Click indicator"
+        : isLoadingLabel ? "Loading indicator"
+        : `Cursor label: ${label}`;
+
+      return {
+        shouldPulse,
+        labelOffset,
+        labelClasses,
+        animateProps,
+        transitionProps,
+        ariaLabel,
+      };
+    }, [
+      label,
+      isClickLabel,
+      isLoadingLabel,
+      isHoveringTitle,
+      isHoveringPageNumber,
+    ]);
 
   return (
     <motion.div
@@ -47,10 +72,12 @@ const CursorLabel: React.FC<CursorLabelProps> = ({
       initial={{ opacity: 1 }}
       animate={animateProps}
       transition={transitionProps}
+      aria-hidden="true"
+      role="presentation"
     >
       {label}
     </motion.div>
   );
 };
 
-export default CursorLabel;
+export default React.memo(CursorLabel);
