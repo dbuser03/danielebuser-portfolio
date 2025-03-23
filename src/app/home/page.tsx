@@ -1,6 +1,6 @@
 "use client";
 
-import Footer from "@/components/footer/Footer";
+import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import {
   DEFAULT_CITY,

@@ -1,8 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { FooterProps } from "@/types/footer/footer";
+import {
+  FooterProps,
+  CityInfoProps,
+  PageNumberProps,
+} from "@/types/footer/footer";
 import {
   DEFAULT_CITY,
   DEFAULT_COORDINATES,
@@ -18,14 +22,14 @@ import {
 import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { useLoadingProgress } from "@/hooks/UseLoadingProgress";
 
-const CityInfo: React.FC<{
-  preventCityAnimation: boolean;
-  preventCoordinatesAnimation: boolean;
-  preventTimeAnimation: boolean;
-  city: string;
-  time: string;
-  coordinates: string;
-}> = React.memo(
+const getConditionalAnimation = (
+  shouldAnimate: boolean,
+  animation: Record<string, unknown>
+) => {
+  return shouldAnimate ? animation : {};
+};
+
+const CityInfo: React.FC<CityInfoProps> = React.memo(
   ({
     preventCityAnimation,
     preventCoordinatesAnimation,
@@ -34,18 +38,24 @@ const CityInfo: React.FC<{
     time,
     coordinates,
   }) => {
+    const cityText = useMemo(() => {
+      return preventTimeAnimation ? city : `${city} - ${time}`;
+    }, [city, time, preventTimeAnimation]);
+
     return (
       <div className="city-info">
         <motion.p
           className={STYLES.cityName}
-          {...(preventCityAnimation ? {} : CITY_ANIMATION)}
+          {...getConditionalAnimation(!preventCityAnimation, CITY_ANIMATION)}
         >
-          {city}
-          {!preventTimeAnimation && ` - ${time}`}
+          {cityText}
         </motion.p>
         <motion.p
           className={STYLES.coordinates}
-          {...(preventCoordinatesAnimation ? {} : COORDINATES_ANIMATION)}
+          {...getConditionalAnimation(
+            !preventCoordinatesAnimation,
+            COORDINATES_ANIMATION
+          )}
           aria-label={`Coordinates: ${coordinates}`}
         >
           {coordinates}
@@ -57,29 +67,33 @@ const CityInfo: React.FC<{
 
 CityInfo.displayName = "CityInfo";
 
-const PageNumber: React.FC<{
-  preventPageNumberAnimation: boolean;
-  pageNumber: string;
-  isLoading: boolean;
-  fadeOut?: boolean;
-}> = React.memo(
+const PageNumber: React.FC<PageNumberProps> = React.memo(
   ({ preventPageNumberAnimation, pageNumber, isLoading, fadeOut }) => {
     const loadingProgress = useLoadingProgress({ isLoading });
 
-    const fadeOutAnimation = fadeOut ? FADE_OUT_ANIMATION : {};
+    const displayText = useMemo(() => {
+      return isLoading ?
+          `${loadingProgress.toString().padStart(3, "0")}%`
+        : pageNumber;
+    }, [isLoading, loadingProgress, pageNumber]);
+
+    const animations = useMemo(() => {
+      const baseAnimation = getConditionalAnimation(
+        !preventPageNumberAnimation,
+        PAGE_NUMBER_ANIMATION
+      );
+      return fadeOut ?
+          { ...baseAnimation, ...FADE_OUT_ANIMATION }
+        : baseAnimation;
+    }, [preventPageNumberAnimation, fadeOut]);
+
+    const className = isLoading ? STYLES.loadingPageNumber : STYLES.pageNumber;
+    const ariaLabel =
+      isLoading ? `Loading ${loadingProgress}%` : `Page ${pageNumber}`;
 
     return (
-      <motion.div
-        className={isLoading ? STYLES.loadingPageNumber : STYLES.pageNumber}
-        {...(preventPageNumberAnimation ? {} : PAGE_NUMBER_ANIMATION)}
-        {...fadeOutAnimation}
-        aria-label={
-          isLoading ? `Loading ${loadingProgress}%` : `Page ${pageNumber}`
-        }
-      >
-        {isLoading ?
-          `${loadingProgress.toString().padStart(3, "0")}%`
-        : pageNumber}
+      <motion.div className={className} {...animations} aria-label={ariaLabel}>
+        {displayText}
       </motion.div>
     );
   }
@@ -119,5 +133,7 @@ const Footer: React.FC<FooterProps> = ({
     </footer>
   );
 };
+
+Footer.displayName = "Footer";
 
 export default React.memo(Footer);

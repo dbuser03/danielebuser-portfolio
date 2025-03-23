@@ -1,11 +1,11 @@
 "use client";
 
-import Footer from "@/components/footer/Footer";
-import { Header } from "@/components/header";
 import { LOADING_PAGE_NUMBER } from "@/constants/footer/footer";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useLoadingProgress } from "@/hooks/UseLoadingProgress";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 export default function Loader() {
   const router = useRouter();

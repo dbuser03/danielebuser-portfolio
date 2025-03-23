@@ -8,6 +8,9 @@ export const STYLES = {
   menuItem: "text-xs md:text-sm text-[var(--neutral)] hover:text-[var(--foreground)] transition-colors duration-300",
 };
 
+export const AUTHOR_NAME = "DANIELE BUSER";
+export const AUTHOR_ROLE = "Creative Developer";
+
 export const MAIN_MENU_ITEMS: MenuItem[] = [
   { href: "/about", label: "ABOUT" },
   { href: "/projects", label: "PROJECTS" },
