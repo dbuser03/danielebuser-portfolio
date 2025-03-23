@@ -25,27 +25,25 @@ export default function Loader() {
   }, [progress, router]);
 
   return (
-    <div className="h-screen w-full">
-      <div className="flex h-full w-full items-center justify-center">
-        <Header
-          preventNameAnimation={false}
-          preventMenuAnimation={true}
-          hideMenu={true}
-          clickableAuthorInfo={false}
-        />
-        <Footer
-          preventCityAnimation={true}
-          preventCoordinatesAnimation={true}
-          preventPageNumberAnimation={true}
-          preventTimeAnimation={true}
-          city={""}
-          time={""}
-          coordinates={""}
-          pageNumber={LOADING_PAGE_NUMBER}
-          isLoading={true}
-          fadeOut={fadeOut}
-        />
-      </div>
+    <div className="flex h-full w-full items-center justify-center">
+      <Header
+        preventNameAnimation={false}
+        preventMenuAnimation={true}
+        hideMenu={true}
+        clickableAuthorInfo={false}
+      />
+      <Footer
+        preventCityAnimation={true}
+        preventCoordinatesAnimation={true}
+        preventPageNumberAnimation={true}
+        preventTimeAnimation={true}
+        city={""}
+        time={""}
+        coordinates={""}
+        pageNumber={LOADING_PAGE_NUMBER}
+        isLoading={true}
+        fadeOut={fadeOut}
+      />
     </div>
   );
 }

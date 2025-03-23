@@ -1,5 +1,5 @@
 export const STYLES = {
-  footer: "w-full flex justify-between items-end p-4 fixed bottom-0",
+  footer: "w-full flex justify-between items-end fixed bottom-0 p-4 md:px-6 ",
   cityInfo: "text-left",
   cityName: "text-xs md:text-sm text-[var(--foreground)]",
   coordinates: "text-xs md:text-sm text-[var(--neutral)]",

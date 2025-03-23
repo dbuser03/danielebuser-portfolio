@@ -12,6 +12,7 @@ import {
 import {
   CITY_ANIMATION,
   COORDINATES_ANIMATION,
+  FADE_OUT_ANIMATION,
   PAGE_NUMBER_ANIMATION,
 } from "@/constants/footer/animations";
 import { useCurrentTime } from "@/hooks/useCurrentTime";
@@ -65,13 +66,7 @@ const PageNumber: React.FC<{
   ({ preventPageNumberAnimation, pageNumber, isLoading, fadeOut }) => {
     const loadingProgress = useLoadingProgress({ isLoading });
 
-    const fadeOutAnimation =
-      fadeOut ?
-        {
-          animate: { opacity: 0 },
-          transition: { duration: 0.5 },
-        }
-      : {};
+    const fadeOutAnimation = fadeOut ? FADE_OUT_ANIMATION : {};
 
     return (
       <motion.div

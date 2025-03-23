@@ -7,6 +7,7 @@ import {
   DEFAULT_COORDINATES,
   DEFAULT_PAGE_NUMBER,
 } from "@/constants/footer/footer";
+import { PROJECTS_ANIMATION } from "@/constants/home/animations";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -20,9 +21,7 @@ export default function Home() {
       />
       <motion.div
         className="aspect-video bg-[var(--foreground)]"
-        initial={{ width: "40vw", opacity: 0 }}
-        animate={{ width: "64vw", opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
+        {...PROJECTS_ANIMATION}
       ></motion.div>
       <Footer
         preventCityAnimation={false}

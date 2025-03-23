@@ -1,7 +1,7 @@
 import { MenuItem } from "@/types/header/navMenu";
 
 export const STYLES = {
-  header: "fixed top-0 right-0 left-0 z-10 flex flex-row items-start justify-between p-4",
+  header: "fixed top-0 right-0 left-0 z-10 flex flex-row items-start justify-between p-4 md:px-6",
   name: "md:text-xl text-lg font-bold text-[var(--foreground)]",
   role: "md:text-sm text-xs text-[var(--neutral)]",
   nav: "flex space-x-4 md:space-x-8",
