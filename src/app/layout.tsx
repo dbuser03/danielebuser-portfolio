@@ -6,7 +6,7 @@ import "./globals.css";
 import {
   NEUE_HAAS_GROTESK_DISPLAY_PRO,
   NEUE_HAAS_GROTESK_TEXT_PRO,
-} from "../constants/fonts";
+} from "@/constants/fonts";
 
 export const metadata: Metadata = {
   title: "Daniele Buser",
