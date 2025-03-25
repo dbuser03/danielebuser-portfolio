@@ -19,15 +19,9 @@ import {
   FADE_OUT_ANIMATION,
   PAGE_NUMBER_ANIMATION,
 } from "@/constants/footer/animations";
-import { useCurrentTime } from "@/hooks/useCurrentTime";
-import { useLoadingProgress } from "@/hooks/UseLoadingProgress";
-
-const getConditionalAnimation = (
-  shouldAnimate: boolean,
-  animation: Record<string, unknown>
-) => {
-  return shouldAnimate ? animation : {};
-};
+import { useCurrentTime } from "@/hooks/footer/useCurrentTime";
+import { useLoadingProgress } from "@/hooks/footer/UseLoadingProgress";
+import { getConditionalAnimation } from "@/utils/animations";
 
 const CityInfo: React.FC<CityInfoProps> = React.memo(
   ({
@@ -69,7 +63,7 @@ CityInfo.displayName = "CityInfo";
 
 const PageNumber: React.FC<PageNumberProps> = React.memo(
   ({ preventPageNumberAnimation, pageNumber, isLoading, fadeOut }) => {
-    const loadingProgress = useLoadingProgress({ isLoading });
+    const loadingProgress = useLoadingProgress({ isLoading, duration: 1500 });
 
     const displayText = useMemo(() => {
       return isLoading ?

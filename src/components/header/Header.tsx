@@ -20,13 +20,7 @@ import {
   MAIN_MENU_ITEMS,
   STYLES,
 } from "@/constants/header/header";
-
-const getConditionalAnimation = (
-  shouldAnimate: boolean,
-  animation: Record<string, unknown>
-) => {
-  return shouldAnimate ? animation : {};
-};
+import { getConditionalAnimation } from "@/utils/animations";
 
 const AuthorInfo: React.FC<AuthorInfoProps> = React.memo(
   ({ preventAnimation, clickable }) => {

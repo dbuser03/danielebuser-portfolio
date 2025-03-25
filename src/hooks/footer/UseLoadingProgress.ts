@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
-
-interface UseLoadingProgressOptions {
-  duration?: number;
-  isLoading: boolean;
-}
+import { LoadingProgressOptions } from '@/types/footer/footer';
 
 export const useLoadingProgress = ({ 
   duration = 1500, 
   isLoading 
-}: UseLoadingProgressOptions) => {
+}: LoadingProgressOptions) => {
   const [progress, setProgress] = useState(1);
   
   useEffect(() => {

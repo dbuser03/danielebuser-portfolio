@@ -1,31 +1,17 @@
 "use client";
 
 import { LOADING_PAGE_NUMBER } from "@/constants/footer/footer";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useLoadingProgress } from "@/hooks/UseLoadingProgress";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { useLoaderLogic } from "@/hooks/loader/useLoaderLogic";
+import ColumnGrid from "@/components/ColumnGrid";
 
 export default function Loader() {
-  const router = useRouter();
-  const progress = useLoadingProgress({ isLoading: true });
-  const [fadeOut, setFadeOut] = useState(false);
-
-  useEffect(() => {
-    if (progress === 100) {
-      setFadeOut(true);
-
-      const redirectTimer = setTimeout(() => {
-        router.push("/home");
-      }, 300);
-
-      return () => clearTimeout(redirectTimer);
-    }
-  }, [progress, router]);
+  const { fadeOut } = useLoaderLogic();
 
   return (
     <div className="flex h-full w-full items-center justify-center">
+      <ColumnGrid showBorder={false} opacity={1} className={""} />
       <Header
         preventNameAnimation={false}
         preventMenuAnimation={true}

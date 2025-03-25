@@ -4,7 +4,8 @@
   --background: #0c0c0c;
   --foreground: #f3f3f3;
   --neutral: #9b9b9b;
-  --columns: #101010;
+  --columns: #131313;
+  --columsn-opposite: #ececec;
   --cursor: #ff4500;
 }
 
@@ -12,7 +13,8 @@
   --background: #f3f3f3;
   --foreground: #0c0c0c;
   --neutral: #6b6b6b;
-  --columns: #e8e8e8;
+  --columns: #ececec;
+  --columns-opposite: #131313;
   --cursor: #ff4500;
 }
 
@@ -21,7 +23,8 @@
     --background: #f3f3f3;
     --foreground: #0c0c0c;
     --neutral: #6b6b6b;
-    --columns: #e8e8e8;
+    --columns: #ececec;
+    --columns-opposite: #131313;
     --cursor: #ff4500;
   }
 }

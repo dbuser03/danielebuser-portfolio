@@ -35,3 +35,10 @@ export const FooterPropsSchema = z.object({
 });
 
 export type FooterProps = z.infer<typeof FooterPropsSchema>;
+
+export const LoadingProgressOptionsSchema = z.object({
+  duration: z.number().optional().default(1500),
+  isLoading: z.boolean(),
+});
+
+export type LoadingProgressOptions = z.infer<typeof LoadingProgressOptionsSchema>;
