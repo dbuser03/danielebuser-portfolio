@@ -2,6 +2,21 @@ import React from "react";
 import { ColumnGridProps } from "@/types/columnGridS";
 import { useColumnGrid } from "@/hooks/useWindowSize";
 
+const GRID_STYLES = {
+  CONTAINER: [
+    "pointer-events-none",
+    "absolute inset-0",
+    "-z-1",
+    "grid h-full w-full",
+    "grid-cols-1",
+    "gap-x-4 px-4 md:px-6",
+  ].join(" "),
+  COLUMN: {
+    BASE: "h-full bg-[var(--columns)]",
+    BORDER: "border border-[var(--foreground)]",
+  },
+};
+
 const ColumnGrid: React.FC<ColumnGridProps> = ({
   showBorder = false,
   opacity = 1,
@@ -13,15 +28,10 @@ const ColumnGrid: React.FC<ColumnGridProps> = ({
     return null;
   }
 
-  const gridContainerClass = [
-    "pointer-events-none",
-    "absolute inset-0",
-    "-z-1",
-    "grid h-full w-full",
-    "grid-cols-1",
-    "gap-x-4 px-4 md:px-6",
-    className,
-  ].join(" ");
+  const gridContainerClass = `${GRID_STYLES.CONTAINER} ${className}`;
+  const columnClass = `${GRID_STYLES.COLUMN.BASE} ${
+    showBorder ? GRID_STYLES.COLUMN.BORDER : ""
+  }`;
 
   return (
     <div
@@ -32,9 +42,7 @@ const ColumnGrid: React.FC<ColumnGridProps> = ({
         <div
           key={index}
           style={{ opacity }}
-          className={`h-full bg-[var(--columns)] ${
-            showBorder ? "border border-[var(--foreground)]" : ""
-          }`}
+          className={columnClass}
         />
       ))}
     </div>

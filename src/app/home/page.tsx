@@ -1,6 +1,7 @@
 "use client";
 
 import ColumnGrid from "@/components/ColumnGrid";
+import CustomCursor from "@/components/CustomCursor";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
@@ -31,6 +32,7 @@ export default function Home() {
 
   return (
     <div className="flex h-screen items-center justify-center">
+      <CustomCursor />
       <ColumnGrid columnCount={12} showBorder={false} opacity={1} className={""} />
       <Header
         preventNameAnimation={true}
