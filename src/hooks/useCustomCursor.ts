@@ -1,9 +1,5 @@
+import { Position } from "@/types/customCursor";
 import { useEffect, useRef, useCallback, useState } from "react";
-
-interface Position {
-  x: number;
-  y: number;
-}
 
 export const useCustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);

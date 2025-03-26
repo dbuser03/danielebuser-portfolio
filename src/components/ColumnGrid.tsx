@@ -17,36 +17,32 @@ const GRID_STYLES = {
   },
 };
 
-const ColumnGrid: React.FC<ColumnGridProps> = ({
-  showBorder = false,
-  opacity = 1,
-  className = "",
-}) => {
-  const { columns, initialized } = useColumnGrid();
+const ColumnGrid: React.FC<ColumnGridProps> = React.memo(
+  ({ showBorder = false, opacity = 1, className = "" }) => {
+    const { columns, initialized } = useColumnGrid();
 
-  if (!initialized) {
-    return null;
+    if (!initialized) {
+      return null;
+    }
+
+    const gridContainerClass = `${GRID_STYLES.CONTAINER} ${className}`;
+    const columnClass = `${GRID_STYLES.COLUMN.BASE} ${
+      showBorder ? GRID_STYLES.COLUMN.BORDER : ""
+    }`;
+
+    return (
+      <div
+        className={gridContainerClass}
+        style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+      >
+        {Array.from({ length: columns }).map((_, index) => (
+          <div key={index} style={{ opacity }} className={columnClass} />
+        ))}
+      </div>
+    );
   }
+);
 
-  const gridContainerClass = `${GRID_STYLES.CONTAINER} ${className}`;
-  const columnClass = `${GRID_STYLES.COLUMN.BASE} ${
-    showBorder ? GRID_STYLES.COLUMN.BORDER : ""
-  }`;
-
-  return (
-    <div
-      className={gridContainerClass}
-      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
-    >
-      {Array.from({ length: columns }).map((_, index) => (
-        <div
-          key={index}
-          style={{ opacity }}
-          className={columnClass}
-        />
-      ))}
-    </div>
-  );
-};
+ColumnGrid.displayName = "ColumnGrid";
 
 export default ColumnGrid;

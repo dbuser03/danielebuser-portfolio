@@ -1,4 +1,4 @@
-import { BreakpointsSchema, ColumnsByBreakpointSchema } from "@/types/breakpoint";
+import { BreakpointsSchema, ColumnsByBreakpointSchema } from '@/types/breakpoint';
 
 export const BREAKPOINTS = BreakpointsSchema.parse({
   xl: 1280,
@@ -16,4 +16,4 @@ export const COLUMNS_BY_BREAKPOINT = ColumnsByBreakpointSchema.parse({
   default: 4
 });
 
-export const LARGE_SCREEN_WIDTH = "64vw";
+export const LARGE_SCREEN_WIDTH = '64vw';

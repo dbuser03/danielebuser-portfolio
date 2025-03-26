@@ -1,7 +1,11 @@
-import { CURSOR_STYLES } from "@/constants/customCursor";
-import { useCustomCursor } from "../hooks/useCustomCursor";
+"use client";
 
-const CustomCursor: React.FC = () => {
+import React from "react";
+import { CURSOR_STYLES } from "@/constants/customCursor";
+import { useCustomCursor } from "@/hooks/useCustomCursor";
+import { CustomCursorProps } from "@/types/customCursor";
+
+const CustomCursor: React.FC<CustomCursorProps> = () => {
   const { cursorRef, isVisible } = useCustomCursor();
 
   return (
@@ -12,8 +16,11 @@ const CustomCursor: React.FC = () => {
         ...CURSOR_STYLES.INITIAL_POSITION,
         transform: CURSOR_STYLES.getTransform(isVisible),
       }}
+      aria-hidden="true"
     />
   );
 };
 
-export default CustomCursor;
+CustomCursor.displayName = "CustomCursor";
+
+export default React.memo(CustomCursor);

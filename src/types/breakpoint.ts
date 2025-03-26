@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-export const BreakpointSchema = z.enum(['default', 'sm', 'md', 'lg', 'xl']);
+export const BreakpointSchema = z.enum(["default", "sm", "md", "lg", "xl"]);
 export type Breakpoint = z.infer<typeof BreakpointSchema>;
 
 export const BreakpointsSchema = z.object({
@@ -24,3 +24,4 @@ export type ColumnsByBreakpoint = z.infer<typeof ColumnsByBreakpointSchema>;
 export const getBreakpointSchema = z.function()
   .args(z.number())
   .returns(BreakpointSchema);
+export type GetBreakpoint = z.infer<typeof getBreakpointSchema>;

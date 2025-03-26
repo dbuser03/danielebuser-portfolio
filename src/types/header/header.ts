@@ -6,17 +6,16 @@ export const HeaderPropsSchema = z.object({
   hideMenu: z.boolean().optional().default(false),
   clickableAuthorInfo: z.boolean().optional().default(true)
 });
+export type HeaderProps = z.infer<typeof HeaderPropsSchema>;
 
 export const AuthorInfoPropsSchema = z.object({
   preventAnimation: z.boolean(),
   clickable: z.boolean()
 });
+export type AuthorInfoProps = z.infer<typeof AuthorInfoPropsSchema>;
 
 export const NavigationMenuPropsSchema = z.object({
   preventAnimation: z.boolean(),
   hidden: z.boolean()
 });
-
-export type HeaderProps = z.infer<typeof HeaderPropsSchema>;
-export type AuthorInfoProps = z.infer<typeof AuthorInfoPropsSchema>;
 export type NavigationMenuProps = z.infer<typeof NavigationMenuPropsSchema>;
