@@ -8,6 +8,10 @@ export function useLoaderLogic() {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
+    router.prefetch("/home");
+  }, [router]);
+
+  useEffect(() => {
     if (progress === 100) {
       setFadeOut(true);
 

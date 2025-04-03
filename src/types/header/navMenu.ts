@@ -1,19 +1,17 @@
 import { z } from "zod";
 
-export const MenuItemSchema = z.object({
+export const MenuItem = z.object({
   href: z.string(),
   label: z.string()
 });
+export type MenuItem = z.infer<typeof MenuItem>;
 
-export type MenuItem = z.infer<typeof MenuItemSchema>;
-
-export const MenuItemPropsSchema = z.object({
-  item: MenuItemSchema,
+export const MenuItemProps = z.object({
+  item: MenuItem,
   index: z.number(),
   preventAnimation: z.boolean()
 });
+export type MenuItemProps = z.infer<typeof MenuItemProps>;
 
-export type MenuItemProps = z.infer<typeof MenuItemPropsSchema>;
-
-export const MenuItemsSchema = z.array(MenuItemSchema);
-export type MenuItems = z.infer<typeof MenuItemsSchema>;
+export const MenuItems = z.array(MenuItem);
+export type MenuItems = z.infer<typeof MenuItems>;

@@ -25,7 +25,7 @@ import { getConditionalAnimation } from "@/utils/animations";
 
 const CityInfo: React.FC<CityInfoProps> = React.memo(
   ({
-    preventCityAnimation,
+    preventAnimation,
     preventCoordinatesAnimation,
     preventTimeAnimation,
     city,
@@ -40,7 +40,7 @@ const CityInfo: React.FC<CityInfoProps> = React.memo(
       <div className="city-info">
         <motion.p
           className={STYLES.cityName}
-          {...getConditionalAnimation(!preventCityAnimation, CITY_ANIMATION)}
+          {...getConditionalAnimation(!preventAnimation, CITY_ANIMATION)}
         >
           {cityText}
         </motion.p>
@@ -62,7 +62,7 @@ const CityInfo: React.FC<CityInfoProps> = React.memo(
 CityInfo.displayName = "CityInfo";
 
 const PageNumber: React.FC<PageNumberProps> = React.memo(
-  ({ preventPageNumberAnimation, pageNumber, isLoading, fadeOut }) => {
+  ({ preventAnimation, pageNumber, isLoading, fadeOut }) => {
     const loadingProgress = useLoadingProgress({ isLoading, duration: 1500 });
 
     const displayText = useMemo(() => {
@@ -73,13 +73,13 @@ const PageNumber: React.FC<PageNumberProps> = React.memo(
 
     const animations = useMemo(() => {
       const baseAnimation = getConditionalAnimation(
-        !preventPageNumberAnimation,
+        !preventAnimation,
         PAGE_NUMBER_ANIMATION
       );
       return fadeOut ?
           { ...baseAnimation, ...FADE_OUT_ANIMATION }
         : baseAnimation;
-    }, [preventPageNumberAnimation, fadeOut]);
+    }, [preventAnimation, fadeOut]);
 
     const className = isLoading ? STYLES.loadingPageNumber : STYLES.pageNumber;
     const ariaLabel =
@@ -111,7 +111,7 @@ const Footer: React.FC<FooterProps> = ({
   return (
     <footer className={STYLES.footer} role="contentinfo">
       <CityInfo
-        preventCityAnimation={preventCityAnimation}
+        preventAnimation={preventCityAnimation}
         preventCoordinatesAnimation={preventCoordinatesAnimation}
         preventTimeAnimation={preventTimeAnimation}
         city={city}
@@ -119,7 +119,7 @@ const Footer: React.FC<FooterProps> = ({
         coordinates={coordinates}
       />
       <PageNumber
-        preventPageNumberAnimation={preventPageNumberAnimation}
+        preventAnimation={preventPageNumberAnimation}
         pageNumber={pageNumber}
         isLoading={isLoading}
         fadeOut={fadeOut}

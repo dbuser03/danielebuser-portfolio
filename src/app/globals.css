@@ -3,7 +3,9 @@
 :root {
   --background: #0c0c0c;
   --foreground: #f3f3f3;
+  --foreground-opposite: #f3f3f3;
   --neutral: #9b9b9b;
+  --neutral-opposite: #9b9b9b;
   --columns: #131313;
   --columsn-opposite: #ececec;
   --cursor: #ff4500;
@@ -12,25 +14,25 @@
 :root.light-theme {
   --background: #f3f3f3;
   --foreground: #0c0c0c;
+  --foreground-opposite: #f3f3f3;
   --neutral: #6b6b6b;
+  --neutral-opposite: #9b9b9b;
   --columns: #ececec;
   --columns-opposite: #131313;
-  --cursor: #00baff;
+  --cursor: #ff4500;
 }
 
 @media (prefers-color-scheme: light) {
   :root:not(.dark-theme) {
     --background: #f3f3f3;
     --foreground: #0c0c0c;
+    --foreground-opposite: #f3f3f3;
     --neutral: #6b6b6b;
+    --neutral-opposite: #9b9b9b;
     --columns: #ececec;
     --columns-opposite: #131313;
-    --cursor: #00baff;
+    --cursor: #ff4500;
   }
-}
-
-* {
-  cursor: none;
 }
 
 body {
