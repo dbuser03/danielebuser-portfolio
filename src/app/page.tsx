@@ -4,12 +4,14 @@ import { LOADING_PAGE_NUMBER } from "@/constants/footer/footer";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { useLoaderLogic } from "@/hooks/loader/useLoaderLogic";
+import { Columns } from "@/components/columns";
 
 export default function Loader() {
   const { fadeOut } = useLoaderLogic();
 
   return (
     <div className="flex h-full w-full items-center justify-center">
+      <Columns maxColumns={12} />
       <Header
         preventNameAnimation={false}
         preventMenuAnimation={true}

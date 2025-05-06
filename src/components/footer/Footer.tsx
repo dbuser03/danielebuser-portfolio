@@ -21,7 +21,7 @@ import {
 } from "@/constants/footer/animations";
 import { useCurrentTime } from "@/hooks/footer/useCurrentTime";
 import { useLoadingProgress } from "@/hooks/footer/UseLoadingProgress";
-import { getConditionalAnimation } from "@/utils/animations";
+import { getConditionalAnimation } from "@/utils/conditionalAnimations";
 
 const CityInfo: React.FC<CityInfoProps> = React.memo(
   ({

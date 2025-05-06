@@ -1,8 +1,8 @@
 "use client";
 
+import { Columns } from "@/components/columns";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-
 
 import {
   DEFAULT_CITY,
@@ -13,6 +13,7 @@ import {
 export default function Home() {
   return (
     <div className="flex h-screen items-center justify-center">
+      <Columns maxColumns={12} />
       <Header
         preventNameAnimation={true}
         preventMenuAnimation={false}

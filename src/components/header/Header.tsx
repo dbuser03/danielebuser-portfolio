@@ -20,7 +20,7 @@ import {
   MAIN_MENU_ITEMS,
   STYLES,
 } from "@/constants/header/header";
-import { getConditionalAnimation } from "@/utils/animations";
+import { getConditionalAnimation } from "@/utils/conditionalAnimations";
 
 const AuthorInfo: React.FC<AuthorInfoProps> = React.memo(
   ({ preventAnimation, clickable }) => {
