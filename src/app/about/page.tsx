@@ -10,7 +10,7 @@ import {
   DEFAULT_PAGE_NUMBER,
 } from "@/constants/footer/footer";
 
-export default function Home() {
+export default function About() {
   return (
     <div className="flex h-screen items-center justify-center">
       <Columns maxColumns={12} />
@@ -19,6 +19,7 @@ export default function Home() {
         preventMenuAnimation={false}
         hideMenu={false}
         clickableAuthorInfo={true}
+        currentPath="/about"
       />
       <Footer
         preventCityAnimation={false}

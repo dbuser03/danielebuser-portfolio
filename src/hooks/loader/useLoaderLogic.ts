@@ -8,7 +8,7 @@ export function useLoaderLogic() {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    router.prefetch("/home");
+    router.prefetch("/about");
   }, [router]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export function useLoaderLogic() {
       setFadeOut(true);
 
       const redirectTimer = setTimeout(() => {
-        router.push("/home");
+        router.push("/about");
       }, 300);
 
       return () => clearTimeout(redirectTimer);

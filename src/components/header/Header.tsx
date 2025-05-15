@@ -45,7 +45,7 @@ const AuthorInfo: React.FC<AuthorInfoProps> = React.memo(
     return (
       <div className="author-info">
         {clickable ?
-          <Link href="/home" className="block" aria-label="Go to homepage">
+          <Link href="/about" className="block" aria-label="Go to homepage">
             {authorInfoContent}
           </Link>
         : authorInfoContent}
@@ -57,7 +57,7 @@ const AuthorInfo: React.FC<AuthorInfoProps> = React.memo(
 AuthorInfo.displayName = "AuthorInfo";
 
 const NavigationMenu: React.FC<NavigationMenuProps> = React.memo(
-  ({ preventAnimation, hidden }) => {
+  ({ preventAnimation, hidden, currentPath }) => {
     if (hidden) return null;
 
     return (
@@ -67,19 +67,25 @@ const NavigationMenu: React.FC<NavigationMenuProps> = React.memo(
         role="navigation"
         aria-label="Main navigation"
       >
-        {MAIN_MENU_ITEMS.map((item, index) => (
-          <motion.div
-            key={item.href}
-            {...getConditionalAnimation(
-              !preventAnimation,
-              MENU_ITEM_ANIMATION(index)
-            )}
-          >
-            <Link href={item.href} className={STYLES.menuItem}>
-              {item.label}
-            </Link>
-          </motion.div>
-        ))}
+        {MAIN_MENU_ITEMS.map((item, index) => {
+          const isActive = currentPath === item.href;
+          const menuItemClass =
+            isActive ? STYLES.activeMenuItem : STYLES.menuItem;
+
+          return (
+            <motion.div
+              key={item.href}
+              {...getConditionalAnimation(
+                !preventAnimation,
+                MENU_ITEM_ANIMATION(index)
+              )}
+            >
+              <Link href={item.href} className={menuItemClass}>
+                {item.label}
+              </Link>
+            </motion.div>
+          );
+        })}
       </motion.nav>
     );
   }
@@ -92,6 +98,7 @@ const Header: React.FC<HeaderProps> = ({
   preventMenuAnimation = false,
   hideMenu = false,
   clickableAuthorInfo = true,
+  currentPath,
 }) => {
   return (
     <header className={STYLES.header} role="banner">
@@ -102,6 +109,7 @@ const Header: React.FC<HeaderProps> = ({
       <NavigationMenu
         preventAnimation={preventMenuAnimation}
         hidden={hideMenu}
+        currentPath={currentPath}
       />
     </header>
   );

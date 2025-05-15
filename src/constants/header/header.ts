@@ -6,6 +6,7 @@ export const STYLES = {
   role: "md:text-sm text-xs text-[var(--neutral-opposite)]",
   nav: "flex space-x-4 md:space-x-8",
   menuItem: "text-xs md:text-sm text-[var(--neutral-opposite)] hover:text-[var(--foreground-opposite)] transition-colors duration-300",
+  activeMenuItem: "text-xs md:text-sm text-[var(--foreground-opposite)] font-medium transition-colors duration-300",
 };
 
 export const AUTHOR_NAME = "DANIELE BUSER";
