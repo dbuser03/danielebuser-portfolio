@@ -7,7 +7,7 @@
   --neutral: #9b9b9b;
   --neutral-opposite: #9b9b9b;
   --columns: #131313;
-  --columsn-opposite: #ececec;
+  --columns-opposite: #ececec;
   --cursor: #ff4500;
 }
 
@@ -43,4 +43,13 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-neue-haas-grotesk-display), sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

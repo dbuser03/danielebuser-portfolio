@@ -1,8 +1,9 @@
 "use client";
 
-import { Columns } from "@/components/columns";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { Home } from "@/components/about";
+import { Profile } from "@/components/about";
 
 import {
   DEFAULT_CITY,
@@ -12,8 +13,7 @@ import {
 
 export default function About() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <Columns maxColumns={12} />
+    <div className="flex h-screen flex-col">
       <Header
         preventNameAnimation={true}
         preventMenuAnimation={false}
@@ -21,6 +21,10 @@ export default function About() {
         clickableAuthorInfo={true}
         currentPath="/about"
       />
+      <main className="flex-1">
+        <Home />
+        <Profile />
+      </main>
       <Footer
         preventCityAnimation={false}
         preventTimeAnimation={false}
