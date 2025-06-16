@@ -4,7 +4,6 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Home } from "@/components/about";
 import { Profile } from "@/components/about";
-import { useEffect, useRef, useState } from "react";
 
 import {
   DEFAULT_CITY,
@@ -13,42 +12,6 @@ import {
 } from "@/constants/footer/footer";
 
 export default function About() {
-  const leftColumnRef = useRef<HTMLDivElement>(null);
-  const rightColumnRef = useRef<HTMLDivElement>(null);
-  const [isScrolling, setIsScrolling] = useState(false);
-
-  // Synchronize scrolling between the two columns
-  useEffect(() => {
-    const leftColumn = leftColumnRef.current;
-    const rightColumn = rightColumnRef.current;
-
-    if (!leftColumn || !rightColumn) return;
-
-    const handleLeftScroll = () => {
-      if (!isScrolling) {
-        setIsScrolling(true);
-        rightColumn.scrollTop = leftColumn.scrollTop;
-        setTimeout(() => setIsScrolling(false), 50);
-      }
-    };
-
-    const handleRightScroll = () => {
-      if (!isScrolling) {
-        setIsScrolling(true);
-        leftColumn.scrollTop = rightColumn.scrollTop;
-        setTimeout(() => setIsScrolling(false), 50);
-      }
-    };
-
-    leftColumn.addEventListener("scroll", handleLeftScroll);
-    rightColumn.addEventListener("scroll", handleRightScroll);
-
-    return () => {
-      leftColumn.removeEventListener("scroll", handleLeftScroll);
-      rightColumn.removeEventListener("scroll", handleRightScroll);
-    };
-  }, [isScrolling]);
-
   return (
     <div className="flex h-screen flex-col">
       <Header
@@ -66,7 +29,7 @@ export default function About() {
           <div className="flex h-full">
             <div className="w-1/2 border-r">
               {/* Left column content */}
-              <div ref={leftColumnRef} className="h-full overflow-y-auto p-8">
+              <div className="h-full overflow-y-auto p-8">
                 <h2 className="mb-4 text-2xl font-bold">Blueprint</h2>
 
                 <article className="prose prose-sm max-w-none">
@@ -196,7 +159,7 @@ export default function About() {
 
             <div className="w-1/2">
               {/* Right column content */}
-              <div ref={rightColumnRef} className="h-full overflow-y-auto p-8">
+              <div className="h-full overflow-y-auto p-8">
                 <h2 className="mb-4 text-2xl font-bold">Esempio</h2>
 
                 <article className="prose prose-sm max-w-none">
@@ -251,6 +214,17 @@ export default function About() {
                     del collettivo Obvious, il primo ritratto generato da AI
                     venduto all&apos;asta da Christie&apos;s per 432.500
                     dollari.
+                  </p>
+
+                  <p className="mb-4">
+                    L&apos;ultima area immagina un mondo dove la creatività
+                    artificiale è completamente integrata: dal software
+                    &quot;RunwayML&quot; che democratizza l&apos;accesso agli
+                    strumenti di AI generativa alle installazioni interattive di
+                    Stephanie Dinkins che esplorano bias algoritmici e diversità
+                    culturale. La sezione si conclude con uno spazio di
+                    sperimentazione dove i visitatori possono interagire
+                    direttamente con algoritmi creativi.
                   </p>
 
                   <p className="mb-4">
