@@ -1,6 +1,7 @@
 import React from "react";
 import { Columns } from "@/components/columns";
 import { STYLES } from "@/constants/columns/columns";
+import { MdArrowOutward } from "react-icons/md";
 
 const COLUMN_LAYOUT =
   "col-span-4 col-start-1 sm:col-span-9 sm:col-start-1 md:col-span-9 md:col-start-1 lg:col-span-10 lg:col-start-1";
@@ -82,7 +83,11 @@ export const Profile: React.FC = () => {
                         {" "}
                         high-end digital content
                       </span>
-                      .
+                      .{" "}
+                      <MdArrowOutward
+                        className="inline-block align-middle"
+                        size={54}
+                      />
                     </p>
                   </div>
                 </div>
