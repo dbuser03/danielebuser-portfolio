@@ -11,7 +11,7 @@ export default function Loader() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <Columns maxColumns={12} />
+      <Columns maxColumns={12} alternative={false} />
       <Header
         preventNameAnimation={false}
         preventMenuAnimation={true}
