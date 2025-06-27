@@ -1,6 +1,5 @@
 import localFont from "next/font/local";
 
-// Path: src/app/layout.tsx
 export const NEUE_HAAS_GROTESK_DISPLAY_PRO = localFont({
   src: [
     {
