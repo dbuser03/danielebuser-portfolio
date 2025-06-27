@@ -46,9 +46,9 @@ export const Profile: React.FC = () => {
                           USI - Università della Svizzera Italiana
                         </h4>
                         <p className="text-md mt-3 text-[var(--background)]">
-                          Currently applying to the Master's Degree in Computer
-                          Science with the goal of improving my creative
-                          development skills.
+                          Currently applying to the Master&apos;s Degree in
+                          Computer Science with the goal of improving my
+                          creative development skills.
                         </p>
                       </div>
                       <div className="flex max-w-xs flex-col">
@@ -59,7 +59,7 @@ export const Profile: React.FC = () => {
                           Università degli studi di Milano - Bicocca
                         </h4>
                         <p className="text-md mt-3 text-[var(--background)]">
-                          Bachelor's Degree in Computer Science, expected
+                          Bachelor&apos;s Degree in Computer Science, expected
                           graduation in July. Demonstrated good performance in
                           project-based exams.
                         </p>
