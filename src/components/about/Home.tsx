@@ -18,7 +18,7 @@ export const Home: React.FC = () => {
                 aria-label="Content section"
               />
               <p className="mt-1 text-xs text-[var(--neutral)] md:text-sm">
-                Lorem ipsum
+                (Check my projects)
               </p>
             </div>
           </div>
