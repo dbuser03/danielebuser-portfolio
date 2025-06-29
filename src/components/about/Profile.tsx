@@ -21,26 +21,27 @@ export const Profile: React.FC<ProfileProps> = () => {
               <h1
                 className={`${COLUMN_LAYOUT} text-4xl text-[var(--background)] sm:text-5xl md:text-7xl xl:text-8xl`}
               >
-                {PROFILE_HEADING.split("computer science student").map((part, i) =>
-                  i === 0 ? (
-                    <React.Fragment key={i}>
-                      {part}
-                      <span className="font-bold">computer science student</span>
-                    </React.Fragment>
-                  ) : (
-                    <React.Fragment key={i}>
-                      {part.split("creative developer").map((subPart, j) =>
-                        j === 0 ? (
-                          <React.Fragment key={j}>
-                            {subPart}
-                            <span className="font-bold">creative developer</span>
-                          </React.Fragment>
-                        ) : (
-                          subPart
-                        )
-                      )}
-                    </React.Fragment>
-                  )
+                {PROFILE_HEADING.split("computer science student").map(
+                  (part, i) =>
+                    i === 0 ?
+                      <React.Fragment key={i}>
+                        {part}
+                        <span className="font-bold">
+                          computer science student
+                        </span>
+                      </React.Fragment>
+                    : <React.Fragment key={i}>
+                        {part.split("creative developer").map((subPart, j) =>
+                          j === 0 ?
+                            <React.Fragment key={j}>
+                              {subPart}
+                              <span className="font-bold">
+                                creative developer
+                              </span>
+                            </React.Fragment>
+                          : subPart
+                        )}
+                      </React.Fragment>
                 )}
               </h1>
             </div>
@@ -59,7 +60,10 @@ export const Profile: React.FC<ProfileProps> = () => {
                     <h3 className={SECTION_STYLES.sectionTitle}>Education</h3>
                     <div className={SECTION_STYLES.educationList}>
                       {EDUCATION_ITEMS.map((item, index) => (
-                        <div key={index} className={SECTION_STYLES.educationItem}>
+                        <div
+                          key={index}
+                          className={SECTION_STYLES.educationItem}
+                        >
                           <p className={SECTION_STYLES.periodText}>
                             {item.period}
                           </p>
@@ -76,28 +80,31 @@ export const Profile: React.FC<ProfileProps> = () => {
                   <div className={SECTION_STYLES.experienceGrid}>
                     <h3 className={SECTION_STYLES.sectionTitle}>Experience</h3>
                     <p className={SECTION_STYLES.experienceText}>
-                      {EXPERIENCE.description.split("freelance Graphic Designer").map(
-                        (part, i) =>
-                          i === 0 ? (
+                      {EXPERIENCE.description
+                        .split("freelance Graphic Designer")
+                        .map((part, i) =>
+                          i === 0 ?
                             <React.Fragment key={i}>
                               {part}
-                              <span className="font-bold">freelance Graphic Designer</span>
+                              <span className="font-bold">
+                                freelance Graphic Designer
+                              </span>
                             </React.Fragment>
-                          ) : (
-                            <React.Fragment key={i}>
-                              {part.split("high-end digital content").map((subPart, j) =>
-                                j === 0 ? (
-                                  <React.Fragment key={j}>
-                                    {subPart}
-                                    <span className="font-bold">high-end digital content</span>
-                                  </React.Fragment>
-                                ) : (
-                                  subPart
-                                )
-                              )}
+                          : <React.Fragment key={i}>
+                              {part
+                                .split("high-end digital content")
+                                .map((subPart, j) =>
+                                  j === 0 ?
+                                    <React.Fragment key={j}>
+                                      {subPart}
+                                      <span className="font-bold">
+                                        high-end digital content
+                                      </span>
+                                    </React.Fragment>
+                                  : subPart
+                                )}
                             </React.Fragment>
-                          )
-                      )}
+                        )}
                     </p>
                   </div>
                 </div>

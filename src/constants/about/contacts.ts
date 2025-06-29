@@ -28,7 +28,7 @@ export const SECTION_STYLES = {
   contentWrapper: "w-full pt-28",
   innerWrapper: "relative mx-auto px-4 md:px-6",
   headingText: "block text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[16rem] leading-none transition-colors hover:text-[var(--primary)]",
-  contentGrid: "mt-[28rem] sm:mt-96 md:mt-80 lg:mt-64 xl:mt-80 grid w-full grid-cols-1 xl:grid-cols-2",
+  contentGrid: "mt-96 md:mt-72 lg:mt-64 xl:mt-80 grid w-full grid-cols-1 xl:grid-cols-2",
   descriptionContainer: "col-span-1 max-w-xl",
   descriptionText: "text-xl max-w-sm sm:max-w-md md:max-w-xl sm:text-2xl md:text-3xl",
   contactContainer: "col-span-1 pt-8 md:pt-12 xl:pt-0 flex flex-col xl:items-end",

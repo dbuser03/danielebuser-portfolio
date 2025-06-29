@@ -28,9 +28,7 @@ export const Contacts: React.FC<ContactsProps> = () => {
 
           <div className={SECTION_STYLES.contentGrid}>
             <div className={SECTION_STYLES.descriptionContainer}>
-              <h3 className={SECTION_STYLES.descriptionText}>
-                {DESCRIPTION}
-              </h3>
+              <h3 className={SECTION_STYLES.descriptionText}>{DESCRIPTION}</h3>
             </div>
             <div className={SECTION_STYLES.contactContainer}>
               <div>
