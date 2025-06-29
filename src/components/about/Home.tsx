@@ -1,24 +1,27 @@
 import React from "react";
 import { Columns } from "@/components/columns";
 import { STYLES } from "@/constants/columns/columns";
+import {
+  COLUMN_LAYOUT,
+  CHECK_PROJECTS_TEXT,
+  SECTION_STYLES,
+} from "@/constants/about/home";
+import type { HomeProps } from "@/types/about/home";
 
-const COLUMN_LAYOUT =
-  "col-span-4 col-start-1 sm:col-span-4 sm:col-start-2 md:col-span-6 md:col-start-2 lg:col-span-8 lg:col-start-2 xl:col-span-8 xl:col-start-3";
-
-export const Home: React.FC = () => {
+export const Home: React.FC<HomeProps> = () => {
   return (
-    <section className="relative flex h-screen w-full flex-col items-center justify-center">
+    <section className={SECTION_STYLES.container}>
       <Columns maxColumns={12} alternative={false} />
-      <div className="w-full">
-        <div className="relative mx-auto px-4 md:px-6">
+      <div className={SECTION_STYLES.contentWrapper}>
+        <div className={SECTION_STYLES.innerWrapper}>
           <div className={STYLES.grid}>
             <div className={COLUMN_LAYOUT}>
               <div
-                className="aspect-[16/9] w-full bg-[var(--neutral)]"
+                className={SECTION_STYLES.contentBox}
                 aria-label="Content section"
               />
-              <p className="mt-1 text-xs text-[var(--neutral)] md:text-sm">
-                (Check my projects)
+              <p className={SECTION_STYLES.captionText}>
+                {CHECK_PROJECTS_TEXT}
               </p>
             </div>
           </div>

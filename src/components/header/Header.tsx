@@ -3,24 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  NAME_ANIMATION,
-  ROLE_ANIMATION,
-  MENU_ANIMATION,
-  MENU_ITEM_ANIMATION,
-} from "@/constants/header/animations";
-import {
-  AuthorInfoProps,
-  HeaderProps,
-  NavigationMenuProps,
-} from "@/types/header/header";
-import {
-  AUTHOR_NAME,
-  AUTHOR_ROLE,
-  MAIN_MENU_ITEMS,
-  STYLES,
-} from "@/constants/header/header";
+import { NAME_ANIMATION, ROLE_ANIMATION } from "@/constants/header/animations";
+import { AuthorInfoProps, HeaderProps } from "@/types/header/header";
+import { AUTHOR_NAME, AUTHOR_ROLE, STYLES } from "@/constants/header/header";
 import { getConditionalAnimation } from "@/utils/conditionalAnimations";
+import NavMenu from "./NavMenu";
 
 const AuthorInfo: React.FC<AuthorInfoProps> = React.memo(
   ({ preventAnimation, clickable }) => {
@@ -56,43 +43,6 @@ const AuthorInfo: React.FC<AuthorInfoProps> = React.memo(
 
 AuthorInfo.displayName = "AuthorInfo";
 
-const NavigationMenu: React.FC<NavigationMenuProps> = React.memo(
-  ({ preventAnimation, hidden, currentPath }) => {
-    if (hidden) return null;
-
-    return (
-      <motion.nav
-        className={STYLES.nav}
-        {...getConditionalAnimation(!preventAnimation, MENU_ANIMATION)}
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        {MAIN_MENU_ITEMS.map((item, index) => {
-          const isActive = currentPath === item.href;
-          const menuItemClass =
-            isActive ? STYLES.activeMenuItem : STYLES.menuItem;
-
-          return (
-            <motion.div
-              key={item.href}
-              {...getConditionalAnimation(
-                !preventAnimation,
-                MENU_ITEM_ANIMATION(index)
-              )}
-            >
-              <Link href={item.href} className={menuItemClass}>
-                {item.label}
-              </Link>
-            </motion.div>
-          );
-        })}
-      </motion.nav>
-    );
-  }
-);
-
-NavigationMenu.displayName = "NavigationMenu";
-
 const Header: React.FC<HeaderProps> = ({
   preventNameAnimation = false,
   preventMenuAnimation = false,
@@ -106,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({
         preventAnimation={preventNameAnimation}
         clickable={clickableAuthorInfo}
       />
-      <NavigationMenu
+      <NavMenu
         preventAnimation={preventMenuAnimation}
         hidden={hideMenu}
         currentPath={currentPath}
