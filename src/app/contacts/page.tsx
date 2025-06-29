@@ -2,8 +2,6 @@
 
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { Home } from "@/components/about";
-import { Profile } from "@/components/about";
 import { Contacts } from "@/components/about";
 
 import {
@@ -12,26 +10,24 @@ import {
   DEFAULT_PAGE_NUMBER,
 } from "@/constants/footer/footer";
 
-export default function About() {
+export default function Contact() {
   return (
     <div className="flex h-screen flex-col">
       <Header
         preventNameAnimation={true}
-        preventMenuAnimation={false}
+        preventMenuAnimation={true}
         hideMenu={false}
         clickableAuthorInfo={true}
-        currentPath="/about"
+        currentPath="/contacts"
       />
       <main className="flex-1">
-        <Home />
-        <Profile />
         <Contacts />
       </main>
       <Footer
-        preventCityAnimation={false}
-        preventTimeAnimation={false}
-        preventCoordinatesAnimation={false}
-        preventPageNumberAnimation={false}
+        preventCityAnimation={true}
+        preventTimeAnimation={true}
+        preventCoordinatesAnimation={true}
+        preventPageNumberAnimation={true}
         city={DEFAULT_CITY}
         time={""}
         coordinates={DEFAULT_COORDINATES}
