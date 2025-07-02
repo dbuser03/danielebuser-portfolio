@@ -5,14 +5,14 @@ import { Header } from "@/components/header";
 import { Home } from "@/components/about";
 import { Profile } from "@/components/about";
 import { Contacts } from "@/components/about";
+import { usePageNumber } from "@/hooks/about/usePageNumber";
 
-import {
-  DEFAULT_CITY,
-  DEFAULT_COORDINATES,
-  DEFAULT_PAGE_NUMBER,
-} from "@/constants/footer/footer";
+import { DEFAULT_CITY, DEFAULT_COORDINATES } from "@/constants/footer/footer";
+import ScrollContext from "@/components/ScrollContext";
 
 export default function About() {
+  const { currentPage, homeRef, profileRef, contactsRef } = usePageNumber();
+
   return (
     <div className="flex h-screen flex-col">
       <Header
@@ -23,9 +23,17 @@ export default function About() {
         currentPath="/about"
       />
       <main className="flex-1">
-        <Home />
-        <Profile />
-        <Contacts />
+        <ScrollContext>
+          <div ref={homeRef}>
+            <Home />
+          </div>
+          <div ref={profileRef}>
+            <Profile />
+          </div>
+          <div ref={contactsRef}>
+            <Contacts />
+          </div>
+        </ScrollContext>
       </main>
       <Footer
         preventCityAnimation={false}
@@ -33,11 +41,11 @@ export default function About() {
         preventCoordinatesAnimation={false}
         preventPageNumberAnimation={false}
         city={DEFAULT_CITY}
-        time={""}
         coordinates={DEFAULT_COORDINATES}
-        pageNumber={DEFAULT_PAGE_NUMBER}
+        pageNumber={currentPage}
         isLoading={false}
         fadeOut={false}
+        time={""}
       />
     </div>
   );

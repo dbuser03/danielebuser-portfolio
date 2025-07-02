@@ -7,7 +7,6 @@ import { Contacts } from "@/components/about";
 import {
   DEFAULT_CITY,
   DEFAULT_COORDINATES,
-  DEFAULT_PAGE_NUMBER,
 } from "@/constants/footer/footer";
 
 export default function Contact() {
@@ -31,7 +30,7 @@ export default function Contact() {
         city={DEFAULT_CITY}
         time={""}
         coordinates={DEFAULT_COORDINATES}
-        pageNumber={DEFAULT_PAGE_NUMBER}
+        pageNumber={"005"}
         isLoading={false}
         fadeOut={false}
       />
