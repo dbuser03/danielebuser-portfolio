@@ -8,13 +8,15 @@ import { Contacts } from "@/components/about";
 import { usePageNumber } from "@/hooks/about/usePageNumber";
 
 import { DEFAULT_CITY, DEFAULT_COORDINATES } from "@/constants/footer/footer";
-import ScrollContext from "@/components/ScrollContext";
+import ScrollContext from "@/components/context/ScrollContext";
+import Cursor from "@/components/cursor/Cursor";
 
 export default function About() {
   const { currentPage, homeRef, profileRef, contactsRef } = usePageNumber();
 
   return (
     <div className="flex h-screen flex-col">
+      <Cursor />
       <Header
         preventNameAnimation={true}
         preventMenuAnimation={false}

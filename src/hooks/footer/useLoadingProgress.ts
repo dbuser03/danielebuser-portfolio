@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { LoadingProgressOptions } from '@/types/footer/footer';
+import { useState, useEffect } from "react";
+import { LoadingProgressOptions } from "@/types/footer/footer";
 
 export const useLoadingProgress = ({ 
   duration = 1500, 

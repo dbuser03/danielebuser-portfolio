@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useLoadingProgress } from "@/hooks/footer/UseLoadingProgress";
+import { useLoadingProgress } from "@/hooks/footer/useLoadingProgress";
 
 export function useLoaderLogic() {
   const router = useRouter();

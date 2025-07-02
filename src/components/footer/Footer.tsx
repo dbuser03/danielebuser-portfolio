@@ -20,7 +20,7 @@ import {
   PAGE_NUMBER_ANIMATION,
 } from "@/constants/footer/animations";
 import { useCurrentTime } from "@/hooks/footer/useCurrentTime";
-import { useLoadingProgress } from "@/hooks/footer/UseLoadingProgress";
+import { useLoadingProgress } from "@/hooks/footer/useLoadingProgress";
 import { getConditionalAnimation } from "@/utils/conditionalAnimations";
 
 const CityInfo: React.FC<CityInfoProps> = React.memo(

@@ -45,6 +45,10 @@ body {
   user-select: none;
 }
 
+* {
+  cursor: none !important;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-neue-haas-grotesk-display), sans-serif;
 }

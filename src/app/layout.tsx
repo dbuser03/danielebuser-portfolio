@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { CursorProvider } from "@/components/context/CursorContext";
 import "./globals.css";
 
 import {
   NEUE_HAAS_GROTESK_DISPLAY_PRO,
   NEUE_HAAS_GROTESK_TEXT_PRO,
-} from "@/constants/fonts";
+} from "@/constants/other/fonts";
 
 export const metadata: Metadata = {
   title: "Daniele Buser",
@@ -23,9 +24,11 @@ export default function RootLayout({
       <body
         className={`${NEUE_HAAS_GROTESK_DISPLAY_PRO.variable} ${NEUE_HAAS_GROTESK_TEXT_PRO.variable} antialiased`}
       >
-        {children}
-        <Analytics />
-        <SpeedInsights />
+        <CursorProvider>
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </CursorProvider>
       </body>
     </html>
   );
