@@ -22,6 +22,8 @@ export const EXPERIENCE: Experience = {
 
 export const PROFILE_HEADING = "I'm a computer science student based in Milan willing to become an amazing creative developer.";
 
+export const IRONIC_PROFILE_HEADING = "I'm an average computer science student who enjoys borrowing creative ideas. Just like this one.";
+
 export const SECTION_STYLES = {
   container: "relative flex w-full flex-col items-start justify-center",
   contentWrapper: "w-full",

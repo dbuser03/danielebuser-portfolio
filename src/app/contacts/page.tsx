@@ -8,12 +8,10 @@ import {
   DEFAULT_CITY,
   DEFAULT_COORDINATES,
 } from "@/constants/footer/footer";
-import Cursor from "@/components/cursor/Cursor";
 
 export default function Contact() {
   return (
     <div className="flex h-screen flex-col">
-      <Cursor />
       <Header
         preventNameAnimation={true}
         preventMenuAnimation={true}
